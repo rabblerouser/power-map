@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -28,4 +32,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.axis {
+  width: 50em;
+  height: 50em;
+  background-color: #afa9af;
+  position: relative;
+}
+
+.axis div {
+  position:absolute;
+}
+
+#top-marker {
+  top: 0;
+  left: 50%;
+}
+
+#bottom-marker {
+  bottom: 0;
+  left: 50%;
+}
+
+#left-marker {
+  top: 50%;
+  left: 0;
+}
+
+#right-marker {
+  top: 50%;
+  right: 0;
+}
+
+.line {
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;
 }
