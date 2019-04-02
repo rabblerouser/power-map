@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
-import {ArcherContainer, ArcherElement} from "react-archer";
 
-const rootStyle = { display: 'flex', justifyContent: 'center' };
-const rowStyle = { margin: '200px 0', display: 'flex', justifyContent: 'space-between', }
-const boxStyle = { padding: '10px', border: '1px solid black', };
+import Card from "../card/card";
+
 
 class Axis extends Component {
+    constructor(){
+            super();
+
+            this.state = {
+                children: []
+            }
+    }
+
+    appendChild() {
+        this.setState({
+            children: [
+                ...this.state.children,
+                <Card/>
+            ]
+        });
+    }
+
     render() {
 
         return (
@@ -17,7 +32,15 @@ class Axis extends Component {
                 <svg className='line'>
                     <line x1={"0"} y1={"50%"} x2={"100%"} y2={"50%"} markerEnd={ 'url(#markerArrow)' }  style={{ stroke: 'red', strokeWidth: 2 }} />
                 </svg>
+
+                {this.state.children.map(child => child)}
+
+                <button className={"add-button"} onClick={() => this.appendChild()}>Add a Card</button>
+
+
+
             </div>
+
         );
 
 
