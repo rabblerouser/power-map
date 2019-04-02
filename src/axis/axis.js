@@ -35,7 +35,7 @@ class Axis extends Component {
 
                 {this.state.children.map(child => child)}
 
-                <button className={"add-button"} onClick={() => this.appendChild()}>Add a Card</button>
+                <button id={"add-button"} onClick={() => this.appendChild()}>Add a Card</button>
 
 
 

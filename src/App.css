@@ -1,9 +1,11 @@
 .App {
   text-align: center;
   display: flex;
-  flex-direction: column;
+  height:100vh;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+
 }
 
 .App-logo {
@@ -24,16 +26,6 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 .axis {
   width: 50em;
