@@ -12,11 +12,11 @@ class Axis extends Component {
             }
     }
 
-    appendChild() {
+    appendChild( ) {
         this.setState({
             children: [
                 ...this.state.children,
-                <Card/>
+                <Card name={"TEST"}/>
             ]
         });
     }
