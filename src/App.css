@@ -30,7 +30,7 @@
 .axis {
   width: 50em;
   height: 50em;
-  background-color: #afa9af;
+  background-color: #dbd4db;
   position: relative;
 }
 
@@ -68,7 +68,7 @@
 .test {
   width: 100px;
   height: 100px;
-  background-color: white;
+  background-color: #f8f7f9;
   display: flex;
   flex-direction: column;
   align-items: center;
