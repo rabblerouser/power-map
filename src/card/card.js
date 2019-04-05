@@ -7,6 +7,7 @@ class Card extends Component {
         return (
             <Draggable bounds="parent" >
                 <div className={"test"}>
+                    <h3>Enter Name here</h3>
 
                 </div>
             </Draggable>
