@@ -33,10 +33,6 @@
   position: relative;
 }
 
-.axis div {
-  position:absolute;
-}
-
 #top-marker {
   top: 0;
   left: 50%;
@@ -73,6 +69,17 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #ffa3a3;
+  border: 0;
 }
 
 #add-card-form {

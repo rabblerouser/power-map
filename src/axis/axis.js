@@ -16,7 +16,7 @@ class Axis extends Component {
         this.setState({
             children: [
                 ...this.state.children,
-                <Card name={this.refs.CardText.value}/>
+                <Card name={this.refs.CardText.value} key={this.state.children.length-1}/>
             ]
         });
     }

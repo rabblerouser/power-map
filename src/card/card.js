@@ -17,6 +17,9 @@ class Card extends Component {
             <Draggable bounds="parent" >
                 <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
+                    <button className={"delete-icon"}>
+                        x
+                    </button>
 
                 </div>
             </Draggable>
