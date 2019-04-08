@@ -76,6 +76,8 @@
   flex-wrap: wrap;
 }
 
-#add-button {
+#add-card-form {
   position: absolute;
+  left: 40%;
+  top: -20px;
 }
