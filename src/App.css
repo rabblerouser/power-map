@@ -84,35 +84,30 @@
 
 .axis-title {
   position: absolute;
+  z-index: 1;
+  margin: 0;
 }
 
 .top-title {
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .bottom-title {
-  bottom: 0;
-
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .left-title{
-  display: flex;
-  align-items: center;
-  top: 30px;
-  bottom: 0;
+  left: 0;
+  top: 52%;
+  transform: translateY(-50%);
 }
 
 .right-title{
-  display: flex;
-  align-items: center;
-  top: 30px;
-  bottom: 0;
   right: 0;
+  top: 52%;
+  transform: translateY(-50%);
 }
