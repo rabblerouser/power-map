@@ -19,7 +19,7 @@ it('calls card creation function correctly', () => {
 
 });
 
-it('creates card correctly', () => {
+it('does not allow empty card', () => {
     const axis  = mount(
         <Axis/>,
     );
@@ -27,5 +27,19 @@ it('creates card correctly', () => {
     const button = axis.find('#add-card-button');
     button.simulate('click');
 
-    expect(axis.contains(<Card name={""}/>)).toBe(true);
+    expect(axis.contains(<Card name={""}/>)).toBe(false);
+});
+
+it('creates card correctly', () => {
+    const axis  = mount(
+        <Axis/>,
+    );
+
+    const textField = axis.find('#add-card-text');
+    textField.value = "figure"
+
+    const button = axis.find('#add-card-button');
+    button.simulate('click');
+
+    expect(axis.contains(<Card name={"figure"}/>)).toBe(false);
 });

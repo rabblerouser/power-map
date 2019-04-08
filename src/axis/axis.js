@@ -13,6 +13,12 @@ class Axis extends Component {
     }
 
     appendChild( ) {
+
+        const cardText = this.refs.CardText.value;
+
+        if(cardText === "")
+            return false;
+
         this.setState({
             children: [
                 ...this.state.children,
