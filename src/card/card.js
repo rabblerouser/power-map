@@ -15,7 +15,7 @@ class Card extends Component {
     render() {
         return (
             <Draggable bounds="parent" >
-                <div className={"test"}>
+                <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
 
                 </div>
