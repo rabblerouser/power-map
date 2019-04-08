@@ -16,7 +16,7 @@ class Axis extends Component {
         this.setState({
             children: [
                 ...this.state.children,
-                <Card name={document.getElementById("add-card-text").value}/>
+                <Card name={this.refs.CardText.value}/>
             ]
         });
     }
@@ -43,7 +43,7 @@ class Axis extends Component {
                 {this.state.children.map(child => child)}
 
                 <div id={"add-card-form"}>
-                    <input type={"text"} id={"add-card-text"}/>
+                    <input type={"text"} id={"add-card-text"} ref={"CardText"}/>
                     <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
                 </div>
 

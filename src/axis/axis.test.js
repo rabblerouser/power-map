@@ -4,7 +4,7 @@ import Axis from "./axis";
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
-it('creates card correctly', () => {
+it('calls card creation function correctly', () => {
 
     const axis  = shallow(
         <Axis/>,
