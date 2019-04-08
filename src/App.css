@@ -69,7 +69,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  position: relative;
+  position: absolute;
+  border: 1px solid black;
 }
 
 .delete-icon {
