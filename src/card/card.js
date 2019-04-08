@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 
+const deleteFeature = false;
 
 class Card extends Component {
 
@@ -17,10 +18,7 @@ class Card extends Component {
             <Draggable bounds="parent" >
                 <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
-                    <button className={"delete-icon"}>
-                        x
-                    </button>
-
+                    {deleteFeature ? <button className={"delete-icon"}>x</button> : null}
                 </div>
             </Draggable>
         );
