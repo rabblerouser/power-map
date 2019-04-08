@@ -47,6 +47,11 @@ class Axis extends Component {
                     <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
                 </div>
 
+                <h3 class={"axis-title top-title"}>Powerful</h3>
+                <h3 class={"axis-title left-title"}>Strongly Disagree</h3>
+                <h3 class={"axis-title right-title"}>Strongly Agree</h3>
+                <h3 class={"axis-title bottom-title"}>Less Powerful</h3>
+
 
 
             </div>

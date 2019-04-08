@@ -81,3 +81,38 @@
   left: 40%;
   top: -20px;
 }
+
+.axis-title {
+  position: absolute;
+}
+
+.top-title {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.bottom-title {
+  bottom: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.left-title{
+  display: flex;
+  align-items: center;
+  top: 30px;
+  bottom: 0;
+}
+
+.right-title{
+  display: flex;
+  align-items: center;
+  top: 30px;
+  bottom: 0;
+  right: 0;
+}
