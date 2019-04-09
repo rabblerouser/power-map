@@ -36,10 +36,13 @@ it('creates card correctly', () => {
     );
 
     const textField = axis.find('#add-card-text');
-    textField.value = "figure"
+    textField.getDOMNode().value = "figure";
 
     const button = axis.find('#add-card-button');
     button.simulate('click');
 
-    expect(axis.contains(<Card name={"figure"}/>)).toBe(false);
+    axis.instance().forceUpdate();
+    axis.update();
+
+    expect(axis.contains(<Card name={"figure"}/>)).toBe(true);
 });
