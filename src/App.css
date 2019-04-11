@@ -71,6 +71,7 @@
   flex-wrap: wrap;
   position: absolute;
   border: 1px solid black;
+  z-index: 2;
 }
 
 .delete-icon {
