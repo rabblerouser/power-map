@@ -45,4 +45,5 @@ it('creates card correctly', () => {
     axis.update();
 
     expect(axis.contains(<Card name={"figure"}/>)).toBe(true);
+    expect(textField.getDOMNode().value).toBe('');
 });

@@ -25,6 +25,8 @@ class Axis extends Component {
                 <Card name={this.refs.CardText.value} key={this.state.children.length-1}/>
             ]
         });
+
+        this.refs.CardText.value = "";
     }
 
     render() {
