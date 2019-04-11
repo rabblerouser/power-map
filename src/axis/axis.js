@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Card from "../card/card";
+import ErrorMessage from "../component/error-message";
 
 
 class Axis extends Component {
@@ -15,9 +16,12 @@ class Axis extends Component {
     appendChild( ) {
 
         const cardText = this.refs.CardText.value;
+        const errorMessage = this.refs.ErrorMessage;
 
-        if(cardText === "")
+        if(cardText === "") {
+            errorMessage.setHidden(false);
             return false;
+        }
 
         this.setState({
             children: [
@@ -27,6 +31,8 @@ class Axis extends Component {
         });
 
         this.refs.CardText.value = "";
+        errorMessage.setHidden(true);
+
     }
 
     render() {
@@ -51,6 +57,7 @@ class Axis extends Component {
                 {this.state.children.map(child => child)}
 
                 <div id={"add-card-form"}>
+                    <ErrorMessage ref={"ErrorMessage"}/>
                     <input type={"text"} id={"add-card-text"} ref={"CardText"}/>
                     <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
                 </div>

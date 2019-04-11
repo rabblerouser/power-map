@@ -27,7 +27,12 @@ it('does not allow empty card', () => {
     const button = axis.find('#add-card-button');
     button.simulate('click');
 
+    axis.instance().forceUpdate();
+    axis.update();
+
     expect(axis.contains(<Card name={""}/>)).toBe(false);
+    expect(axis.find(".error-message").at(0).props().hidden).toBe(false);
+
 });
 
 it('creates card correctly', () => {
@@ -46,4 +51,5 @@ it('creates card correctly', () => {
 
     expect(axis.contains(<Card name={"figure"}/>)).toBe(true);
     expect(textField.getDOMNode().value).toBe('');
+    expect(axis.find(".error-message").at(0).props().hidden).toBe(true);
 });
