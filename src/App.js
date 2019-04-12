@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Power Mapping Tool</h1>
+          <h2>Power Mapping Tool</h2>
         </header>
         <Axis></Axis>
       </div>
