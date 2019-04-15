@@ -17,6 +17,7 @@ class Card extends Component {
         this.setState({
             deleted: true,
         });
+        this.props.filter(this.props.id);
     }
 
     render() {

@@ -13,6 +13,9 @@ class Axis extends Component {
                 children: [],
                 idCounter: 0,
             }
+
+            this.appendChild = this.appendChild.bind(this);
+            this.filterChild = this.filterChild.bind(this);
     }
 
     appendChild( ) {
@@ -38,6 +41,16 @@ class Axis extends Component {
 
         this.refs.CardText.value = "";
         errorMessage.setHidden(true);
+
+    }
+
+    filterChild(id) {
+        const children = this.state.children.filter(child =>
+            child.props.id !== id
+        );
+        this.setState({
+            children: children,
+        });
 
     }
 

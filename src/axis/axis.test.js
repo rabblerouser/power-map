@@ -49,7 +49,34 @@ it('creates card correctly', () => {
     axis.instance().forceUpdate();
     axis.update();
 
-    expect(axis.contains(<Card name={"figure"}/>)).toBe(true);
+    expect(axis.find(".figure-card")).toHaveLength(1);
     expect(textField.getDOMNode().value).toBe('');
     expect(axis.find(".error-message").at(0).props().hidden).toBe(true);
+});
+
+it('deletes card correctly', () => {
+    const axis  = mount(
+        <Axis/>,
+    );
+
+    const textField = axis.find('#add-card-text');
+    textField.getDOMNode().value = "figure";
+
+    const button = axis.find('#add-card-button');
+    button.simulate('click');
+
+    axis.instance().forceUpdate();
+    axis.update();
+
+    expect(axis.find(".figure-card")).toHaveLength(1);
+
+    const card = axis.find('.figure-card').at(0);
+    const deleteIcon = card.find('.delete-icon').at(0);
+    deleteIcon.simulate('click');
+
+    axis.instance().forceUpdate();
+    axis.update();
+
+    expect(axis.find(".figure-card")).toHaveLength(0);
+
 });
