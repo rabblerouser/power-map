@@ -21,17 +21,14 @@ class Axis extends Component {
     appendChild( ) {
 
         const cardText = this.refs.CardText.value;
-        const errorMessage = this.refs.ErrorMessage;
 
-        if(cardText === "") {
-            errorMessage.setHidden(false);
+        if(!this.nameValidation(cardText))
             return false;
-        }
 
         this.setState({
             children: [
                 ...this.state.children,
-                <Card filter={this.filterChild} name={this.refs.CardText.value}
+                <Card filter={this.filterChild} name={cardText}
                       key={this.state.idCounter}
                       id={this.state.idCounter}
                 />
@@ -40,7 +37,6 @@ class Axis extends Component {
         });
 
         this.refs.CardText.value = "";
-        errorMessage.setHidden(true);
 
     }
 
@@ -51,6 +47,19 @@ class Axis extends Component {
         this.setState({
             children: children,
         });
+
+    }
+
+    nameValidation(cardText) {
+        const errorMessage = this.refs.ErrorMessage;
+
+        if(cardText === "") {
+            errorMessage.setHidden(false);
+            return false;
+        }
+
+        errorMessage.setHidden(true);
+        return true;
 
     }
 
