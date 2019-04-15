@@ -18,3 +18,31 @@ it('calls delete function', () => {
     expect(card.instance().deleteCard).toHaveBeenCalledTimes(1);
 
 });
+
+it('updates location state after drag', () => {
+    const card = mount(
+        <Card name={"name"} key={0} />,
+    );
+
+    expect(card.instance().state.position).toEqual({x:0, y:0});
+
+    card.simulate("mousedown");
+
+    mouseMove(0, 0);
+    mouseMove(500, 500);
+    mouseMove(100, 100);
+
+    expect(card.instance().state.position).toEqual({x:100, y:100});
+
+
+});
+
+
+function mouseMove(x, y, node) {
+    const event = document.createEvent('MouseEvents');
+    event.initMouseEvent("mousemove", true, true, window, 0, 0,
+        0, x, y, false, false, false, false, 0, null );
+    document.dispatchEvent(event);
+    return event;
+
+}
