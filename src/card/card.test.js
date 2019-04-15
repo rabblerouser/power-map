@@ -18,14 +18,3 @@ it('calls delete function', () => {
     expect(card.instance().deleteCard).toHaveBeenCalledTimes(1);
 
 });
-
-it('calls deletes card properly', () => {
-    const card = mount(
-        <Card name={"name"} key={0} />,
-    );
-
-    card.find('.delete-icon').at(0).simulate('click');
-
-    expect(card.instance().state.deleted).toBe(true);
-
-});
