@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Card from "../card/card";
 import ErrorMessage from "../component/error-message";
+import '../axis/axis.css';
 
 
 class Axis extends Component {
