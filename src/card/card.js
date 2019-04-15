@@ -6,12 +6,17 @@ const deleteFeature = false;
 
 class Card extends Component {
 
-    constructor(){
+    constructor(name, key){
         super();
 
         this.props = {
-            name: "Enter name here"
+            name: name,
+            key: key,
         }
+    }
+
+    deleteCard() {
+
     }
 
     render() {
@@ -19,7 +24,7 @@ class Card extends Component {
             <Draggable bounds="parent" >
                 <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
-                    {deleteFeature ? <button className={"delete-icon"}>x</button> : null}
+                    <button className={"delete-icon"} onClick={() => this.deleteCard()}>x</button>
                 </div>
             </Draggable>
         );
