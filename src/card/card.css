@@ -1,0 +1,23 @@
+.figure-card {
+    width: 100px;
+    height: 100px;
+    background-color: #b4b4b4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: absolute;
+    border: 1px solid black;
+    z-index: 2;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ffa3a3;
+    border: 0;
+}

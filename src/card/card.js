@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
+import '../card/card.css'
 
 const deleteFeature = false;
 
