@@ -13,15 +13,22 @@ class Card extends Component {
             name: name,
             key: key,
         }
+
+        this.state = {
+            deleted: false,
+        }
+
     }
 
     deleteCard() {
-
+        this.setState({
+            deleted: true,
+        });
     }
 
     render() {
         return (
-            <Draggable bounds="parent" >
+            <Draggable bounds="parent">
                 <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
                     <button className={"delete-icon"} onClick={() => this.deleteCard()}>x</button>
