@@ -6,17 +6,9 @@ class Card extends Component {
 
     constructor(props){
         super(props);
-
-        this.state = {
-            deleted: false,
-        }
-
     }
 
     deleteCard() {
-        this.setState({
-            deleted: true,
-        });
         this.props.filter(this.props.id);
     }
 
