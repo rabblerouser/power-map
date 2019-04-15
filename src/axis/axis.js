@@ -6,11 +6,12 @@ import '../axis/axis.css';
 
 
 class Axis extends Component {
-    constructor(){
-            super();
+    constructor(props){
+            super(props);
 
             this.state = {
-                children: []
+                children: [],
+                idCounter: 0,
             }
     }
 
@@ -27,8 +28,12 @@ class Axis extends Component {
         this.setState({
             children: [
                 ...this.state.children,
-                <Card name={this.refs.CardText.value} key={this.state.children.length-1}/>
-            ]
+                <Card filter={this.filterChild} name={this.refs.CardText.value}
+                      key={this.state.idCounter}
+                      id={this.state.idCounter}
+                />
+            ],
+            idCounter: this.state.idCounter + 1
         });
 
         this.refs.CardText.value = "";

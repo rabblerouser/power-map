@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import '../card/card.css'
 
-const deleteFeature = false;
-
 class Card extends Component {
 
-    constructor(name, key){
-        super();
-
-        this.props = {
-            name: name,
-            key: key,
-        }
+    constructor(props){
+        super(props);
 
         this.state = {
             deleted: false,
