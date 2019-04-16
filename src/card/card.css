@@ -10,8 +10,8 @@
     position: absolute;
     border: 1px solid black;
     z-index: 2;
-    left: 5vw;
-    bottom: 10vh;
+    left: 0;
+    bottom: 0;
 }
 
 .delete-icon {
