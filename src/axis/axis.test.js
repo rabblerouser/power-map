@@ -82,4 +82,23 @@ describe('Card creation test', function() {
         expect(axis.find(".figure-card")).toHaveLength(0);
 
     });
+
+    it('pressing Enter adds a card', () => {
+        const axis  = mount(
+            <Axis/>,
+        );
+
+        const textField = axis.find('#add-card-text');
+        textField.getDOMNode().value = "figure";
+        textField.simulate('keypress', {key: 'Enter'});
+
+        axis.instance().forceUpdate();
+        axis.update();
+
+        expect(axis.find(".figure-card")).toHaveLength(1);
+        expect(textField.getDOMNode().value).toBe('');
+        expect(axis.find(".error-message").at(0).props().hidden).toBe(true);
+
+    });
+
 }) ;

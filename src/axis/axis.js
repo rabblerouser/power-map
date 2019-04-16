@@ -72,7 +72,10 @@ class Axis extends Component {
                 <header className="App-header">
                     <div id={"add-card-form"}>
                         <ErrorMessage ref={"ErrorMessage"}/>
-                        <input type={"text"} id={"add-card-text"} ref={"CardText"}/>
+                        <input type={"text"} id={"add-card-text"} ref={"CardText"} onKeyPress={(target) => {
+                            if(target.key == 'Enter')
+                                this.appendChild();
+                        }}/>
                         <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
                     </div>
                 </header>
