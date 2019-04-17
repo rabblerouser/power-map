@@ -101,4 +101,21 @@ describe('Card creation test', function() {
 
     });
 
+    it('adds card with pre-determined value', () => {
+        const axis  = mount(
+            <Axis/>,
+        );
+
+        axis.instance().appendChildFromDB(1, "name", 100, 100);
+
+        axis.instance().forceUpdate();
+        axis.update();
+
+        expect(axis.find(".figure-card")).toHaveLength(1);
+        expect(textField.getDOMNode().value).toBe('');
+        expect(axis.find(".error-message").at(0).props().hidden).toBe(true);
+
+
+    });
+
 }) ;

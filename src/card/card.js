@@ -9,8 +9,8 @@ class Card extends Component {
 
         this.state = {
             position:{
-                x: 0,
-                y: 0,
+                x: props.x,
+                y: props.y,
             }
         }
 
@@ -35,7 +35,9 @@ class Card extends Component {
 
     render() {
         return (
-            <Draggable bounds="parent" onDrag={this.updatePosition}>
+            <Draggable bounds="parent"
+                       defaultPosition={{x: this.state.position.x, y: 0 - this.state.position.y}}
+                       onDrag={this.updatePosition}>
                 <div className={"figure-card"}>
                     <h3>{this.props.name}</h3>
                     <button className={"delete-icon"} onClick={() => this.deleteCard()}>x</button>

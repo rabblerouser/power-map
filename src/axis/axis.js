@@ -24,9 +24,25 @@ class Axis extends Component {
     componentDidMount() {
         // return firebase.powerMaps().value
         this.props.firebase.powerMaps().on('value', snapshot => {
-            console.log(snapshot.val())
+            const cards = snapshot.val()["cards"];
+            Object.keys(cards).map(key => {
+                this.appendChildFromDB(key, cards[key]["card_name"],
+                    cards[key]["card_x_pos"], cards[key]["card_y_pos"])
+            });
         })
 
+    }
+
+    appendChildFromDB(id, name, x_pos, y_pos) {
+        this.setState({
+            children: [
+                ...this.state.children,
+                <Card filter={this.filterChild} name={name}
+                      key={id} id={id}
+                      x={x_pos} y={y_pos}
+                />
+            ],
+        });
     }
 
     appendChild() {
@@ -42,6 +58,7 @@ class Axis extends Component {
                 <Card filter={this.filterChild} name={cardText}
                       key={this.state.idCounter}
                       id={this.state.idCounter}
+                      x={0} y={0}
                 />
             ],
             idCounter: this.state.idCounter + 1
