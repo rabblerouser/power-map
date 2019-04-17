@@ -11,11 +11,9 @@ const config = {
     messagingSenderId: "428137662094",
 };
 
-class FireStore extends Component {
+class FireStore {
 
     constructor() {
-        super();
-
         app.initializeApp(config);
 
         this.db = app.database();

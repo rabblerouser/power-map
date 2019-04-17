@@ -4,7 +4,6 @@ import Card from "../card/card";
 import ErrorMessage from "../component/error-message";
 import '../axis/axis.css';
 import '../axis/App.css';
-import  { FirebaseContext, withFirebase } from '../component/Firebase';
 
 
 
@@ -17,8 +16,6 @@ class Axis extends Component {
             idCounter: 0,
         }
 
-        this.appendChild = this.appendChild.bind(this);
-        this.filterChild = this.filterChild.bind(this);
     }
 
     componentDidMount() {
@@ -45,7 +42,7 @@ class Axis extends Component {
         });
     }
 
-    appendChild() {
+    appendChild= () => {
 
         const cardText = this.refs.CardText.value;
 
@@ -68,7 +65,7 @@ class Axis extends Component {
 
     }
 
-    filterChild(id) {
+    filterChild = (id) => {
         const children = this.state.children.filter(child =>
             child.props.id !== id
         );
@@ -141,4 +138,4 @@ class Axis extends Component {
 
 }
 
-export default withFirebase(Axis);
+export default Axis;
