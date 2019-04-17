@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import Card from "../card/card";
 import ErrorMessage from "../component/error-message";
 import '../axis/axis.css';
-import '../axis/App.css'
+import '../axis/App.css';
+import  { FirebaseContext, withFirebase } from '../component/Firebase';
+
 
 
 class Axis extends Component {
@@ -17,6 +19,14 @@ class Axis extends Component {
 
         this.appendChild = this.appendChild.bind(this);
         this.filterChild = this.filterChild.bind(this);
+    }
+
+    componentDidMount() {
+        // return firebase.powerMaps().value
+        this.props.firebase.powerMaps().on('value', snapshot => {
+            console.log(snapshot.val())
+        })
+
     }
 
     appendChild() {
@@ -73,7 +83,7 @@ class Axis extends Component {
                     <div id={"add-card-form"}>
                         <ErrorMessage ref={"ErrorMessage"}/>
                         <input type={"text"} id={"add-card-text"} ref={"CardText"} onKeyPress={(target) => {
-                            if(target.key == 'Enter')
+                            if(target.key === 'Enter')
                                 this.appendChild();
                         }}/>
                         <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
@@ -114,4 +124,4 @@ class Axis extends Component {
 
 }
 
-export default Axis;
+export default withFirebase(Axis);
