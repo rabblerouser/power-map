@@ -29,7 +29,7 @@ class Axis extends Component {
                     return;
 
                 Object.keys(cards).map(key => {
-                    this.appendChildFromDB(key, cards[key]["card_name"],
+                    return this.appendChildFromDB(key, cards[key]["card_name"],
                         cards[key]["card_x_pos"], cards[key]["card_y_pos"])
                 });
             })

@@ -22,14 +22,8 @@ class Card extends Component {
             .on('child_changed', (snapshot, prevSnapshot) => {
                 const card = snapshot.val();
 
-                console.log("CURRENTY IN : " + this.props.id + ", NAME: " + this.props.name);
-                console.log("UPDATE IN : " + card["card_id"] + ", NAME: " + card["card_name"]);
-
                 if(card["card_id"] !== this.props.id)
                     return;
-
-                console.log("CHANGING STATE IN : " + card["card_id"] + ", NAME: " + card["card_name"]);
-
 
                 this.setState({
                     position: {
