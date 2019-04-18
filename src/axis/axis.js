@@ -76,6 +76,11 @@ class Axis extends Component {
                     }
                 ],
             });
+            if(id >= this.state.idCounter) {
+                this.setState({
+                    idCounter: parseInt(id) + 1,
+                })
+            }
         }
 
     }
