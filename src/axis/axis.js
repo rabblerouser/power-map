@@ -13,43 +13,71 @@ class Axis extends Component {
 
         this.state = {
             children: [],
-            idCounter: 0,
+            idCounter: 1,
         }
 
     }
 
     componentDidMount() {
-        this.props.firebase
-            .database()
-            .ref('power-map-1000/cards').on('child_added', snapshot => {
-                const cards = snapshot.val();
-                this.appendChildFromDB(cards["card_id"], cards["card_name"],
-                    cards["card_x_pos"], cards["card_y_pos"])
-        })
+
+        this.props.firebase.database()
+            .ref('power-map-1000')
+            .on('value', snapshot => {
+                const cards = snapshot.val()["cards"];
+
+                if(Object.keys(cards).length < this.state.children.length)
+                    return;
+
+                Object.keys(cards).map(key => {
+                    this.appendChildFromDB(key, cards[key]["card_name"],
+                        cards[key]["card_x_pos"], cards[key]["card_y_pos"])
+                });
+            })
 
         this.props.firebase
             .database()
             .ref('power-map-1000/cards').on('child_removed', snapshot => {
                 const cards = snapshot.val();
                 this.filterChild(cards["card_id"])
-        })
+            })
 
     }
 
     appendChildFromDB(id, name, x_pos, y_pos) {
-        console.log("ID: " + id + " NAME: " + name);
-        this.setState({
-            children: [
-                ...this.state.children,
 
-                {
-                    name: name,
-                    id: id,
-                    x: x_pos,
-                    y: y_pos,
-                }
-            ],
+        let children = [...this.state.children];
+        const existingIndex = children.findIndex(x => {
+            return x.id == id;
         });
+
+        if(existingIndex !== -1) {
+            let newItem = {
+                ...children[existingIndex],
+                id: id,
+                name: name,
+                x: x_pos,
+                y: y_pos,
+            };
+
+            children[existingIndex] = newItem;
+
+            this.setState({
+                children: [...children]
+            })
+        } else {
+            this.setState({
+                children: [
+                    ...children,
+                    {
+                        name: name,
+                        id: id,
+                        x: x_pos,
+                        y: y_pos,
+                    }
+                ],
+            });
+        }
+
     }
 
     appendChild= () => {
@@ -145,6 +173,7 @@ class Axis extends Component {
                     {this.state.children.map(child =>
 
                         <Card filter={this.filterChild} name={child.name}
+                              key={child.id}
                               id={child.id}
                               x={child.x} y={child.y}
                               firebase={this.props.firebase}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import '../card/card.css'
-import {withFirebase} from "../component/Firebase";
 
 class Card extends Component {
 
@@ -14,9 +13,6 @@ class Card extends Component {
                 y: props.y,
             }
         };
-
-        this.deleteCard = this.deleteCard.bind(this);
-        this.updatePosition = this.updatePosition.bind(this);
     }
 
     componentDidMount() {
@@ -26,8 +22,14 @@ class Card extends Component {
             .on('child_changed', (snapshot, prevSnapshot) => {
                 const card = snapshot.val();
 
+                console.log("CURRENTY IN : " + this.props.id + ", NAME: " + this.props.name);
+                console.log("UPDATE IN : " + card["card_id"] + ", NAME: " + card["card_name"]);
+
                 if(card["card_id"] !== this.props.id)
                     return;
+
+                console.log("CHANGING STATE IN : " + card["card_id"] + ", NAME: " + card["card_name"]);
+
 
                 this.setState({
                     position: {
@@ -44,10 +46,9 @@ class Card extends Component {
             .database()
             .ref(`power-map-1000/cards/${this.props.id}`)
             .remove();
-        console.log("DELETE");
     }
 
-    updatePosition(e, ui) {
+    updatePosition = (e, ui) => {
         const {x, y} = this.state.position;
         this.setState({
             position: {

@@ -88,7 +88,7 @@ describe('Card creation test', function() {
         deleteIcon.simulate('click');
 
         // TODO: supposedly from the on child_removed
-        axis.instance().filterChild(0);
+        axis.instance().filterChild(1);
 
         axis.instance().forceUpdate();
         axis.update();
