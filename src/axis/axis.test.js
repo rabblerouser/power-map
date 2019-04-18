@@ -87,6 +87,9 @@ describe('Card creation test', function() {
         const deleteIcon = card.find('.delete-icon').at(0);
         deleteIcon.simulate('click');
 
+        // TODO: supposedly from the on child_removed
+        axis.instance().filterChild(0);
+
         axis.instance().forceUpdate();
         axis.update();
 

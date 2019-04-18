@@ -19,12 +19,30 @@ class Card extends Component {
         this.updatePosition = this.updatePosition.bind(this);
     }
 
-    deleteCard() {
+    // componentDidMount() {
+    //     this.props.firebase
+    //         .database()
+    //         .ref(`power-map-1000/cards/`)
+    //         .on('child_changed', (snapshot, prevSnapshot) => {
+    //             const card = snapshot.val();
+    //
+    //             console.log(card);
+    //
+    //             this.setState({
+    //                 position: {
+    //                     x: card["card_x_pos"],
+    //                     y: card["card_y_pos"],
+    //                 }
+    //             });
+    //         })
+    //
+    // }
+
+    deleteCard = () => {
         this.props.firebase
             .database()
             .ref(`power-map-1000/cards/${this.props.id}`)
             .remove();
-        this.props.filter(this.props.id)
         console.log("DELETE");
     }
 
@@ -54,7 +72,7 @@ class Card extends Component {
     render() {
         return (
             <Draggable bounds="parent"
-                       defaultPosition={{x: this.state.position.x, y: this.state.position.y}}
+                       position={{x: this.state.position.x, y: this.state.position.y}}
                        onDrag={this.updatePosition}
                        onStop={this.savePositionToDB}>
                 <div className={"figure-card"}>

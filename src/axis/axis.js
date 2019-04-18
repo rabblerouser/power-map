@@ -91,7 +91,7 @@ class Axis extends Component {
             child.id !== id
         );
         this.setState({
-            children: [...children],
+            children: children,
         });
 
     }
