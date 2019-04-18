@@ -19,29 +19,35 @@ class Axis extends Component {
     }
 
     componentDidMount() {
-        // return firebase.powerMaps().value
         this.props.firebase
             .database()
-            .ref('power-map-1000').on('value', snapshot => {
-                const cards = snapshot.val()["cards"];
-                Object.keys(cards).map(key => {
-                    this.appendChildFromDB(key, cards[key]["card_name"],
-                        cards[key]["card_x_pos"], cards[key]["card_y_pos"])
-                });
+            .ref('power-map-1000/cards').on('child_added', snapshot => {
+                const cards = snapshot.val();
+                this.appendChildFromDB(cards["card_id"], cards["card_name"],
+                    cards["card_x_pos"], cards["card_y_pos"])
+        })
+
+        this.props.firebase
+            .database()
+            .ref('power-map-1000/cards').on('child_removed', snapshot => {
+                const cards = snapshot.val();
+                this.filterChild(cards["card_id"])
         })
 
     }
 
     appendChildFromDB(id, name, x_pos, y_pos) {
+        console.log("ID: " + id + " NAME: " + name);
         this.setState({
             children: [
                 ...this.state.children,
 
-                <Card filter={this.filterChild} name={name}
-                      key={id} id={id}
-                      x={x_pos} y={y_pos}
-                      firebase={this.props.firebase}
-                />
+                {
+                    name: name,
+                    id: id,
+                    x: x_pos,
+                    y: y_pos,
+                }
             ],
         });
     }
@@ -53,15 +59,25 @@ class Axis extends Component {
         if (!this.nameValidation(cardText))
             return false;
 
+        this.props.firebase
+            .database()
+            .ref(`power-map-1000/cards/${this.state.idCounter}`)
+            .set({
+                card_id: this.state.idCounter,
+                card_name: cardText,
+                card_x_pos: 0,
+                card_y_pos: 0,
+            })
+
         this.setState({
             children: [
                 ...this.state.children,
-                <Card filter={this.filterChild} name={cardText}
-                      key={this.state.idCounter}
-                      id={this.state.idCounter}
-                      x={0} y={0}
-                      firebase={this.props.firebase}
-                />
+                {
+                    name: cardText,
+                    id: this.state.idCounter,
+                    x: 0,
+                    y: 0,
+                }
             ],
             idCounter: this.state.idCounter + 1
         });
@@ -72,10 +88,10 @@ class Axis extends Component {
 
     filterChild = (id) => {
         const children = this.state.children.filter(child =>
-            child.props.id !== id
+            child.id !== id
         );
         this.setState({
-            children: children,
+            children: [...children],
         });
 
     }
@@ -126,7 +142,14 @@ class Axis extends Component {
                               style={{stroke: 'red', strokeWidth: 2}}/>
                     </svg>
 
-                    {this.state.children.map(child => child)}
+                    {this.state.children.map(child =>
+
+                        <Card filter={this.filterChild} name={child.name}
+                              id={child.id}
+                              x={child.x} y={child.y}
+                              firebase={this.props.firebase}
+                        />
+                    )}
 
                     <h3 className={"axis-title top-title"}>Powerful</h3>
                     <h3 className={"axis-title left-title"}>Strongly Disagree</h3>

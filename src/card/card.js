@@ -44,6 +44,7 @@ class Card extends Component {
             .database()
             .ref(`power-map-1000/cards/${this.props.id}`)
             .set({
+                card_id: this.props.id,
                 card_name: this.props.name,
                 card_x_pos: this.state.position.x,
                 card_y_pos: this.state.position.y,
