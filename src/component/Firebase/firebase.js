@@ -11,20 +11,8 @@ const config = {
     messagingSenderId: "428137662094",
 };
 
-class FireStore {
+const firebase = app.initializeApp(config);
 
-    constructor() {
-        app.initializeApp(config);
-
-        this.db = app.database();
-    }
-
-    powerMaps = () => this.db.ref('power-map-1000');
-
-
-
-}
-
-export default FireStore;
+export default firebase;
 
 

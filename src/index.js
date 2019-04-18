@@ -6,7 +6,7 @@ import AxisContainer from "./axis/axis-container";
 import Firebase, { FirebaseContext } from './component/Firebase';
 
 ReactDOM.render(
-    <FirebaseContext.Provider value={new Firebase()}>
+    <FirebaseContext.Provider value={Firebase}>
         <AxisContainer />
     </FirebaseContext.Provider>,
     document.getElementById('root'),

@@ -21,10 +21,10 @@ class Card extends Component {
 
     deleteCard() {
         this.props.firebase
-            .db
+            .database()
             .ref(`power-map-1000/cards/${this.props.id}`)
             .remove();
-        this.props.filterCard(this.props.id)
+        this.props.filter(this.props.id)
         console.log("DELETE");
     }
 
@@ -41,7 +41,7 @@ class Card extends Component {
 
     savePositionToDB = () => {
         this.props.firebase
-            .db
+            .database()
             .ref(`power-map-1000/cards/${this.props.id}`)
             .set({
                 card_name: this.props.name,
@@ -66,4 +66,4 @@ class Card extends Component {
 }
 
 
-export default withFirebase(Card);
+export default Card;

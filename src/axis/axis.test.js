@@ -3,14 +3,25 @@ import {shallow, configure, mount} from 'enzyme';
 import Axis from "./axis";
 import Adapter from 'enzyme-adapter-react-16';
 import Card from "../card/card";
+import { mocksdk } from '../component/test/firebase-mock-setup';
 
 configure({adapter: new Adapter()});
 
 describe('Card creation test', function() {
+
+    beforeAll(() => {
+
+
+    });
+
     it('calls card creation function correctly', () => {
+
         const axis  = shallow(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
+
+        // axis.setProps({firebase: mocksdk});
+        console.log("TEST");
 
         axis.instance().appendChild = jest.fn();
 
@@ -23,7 +34,7 @@ describe('Card creation test', function() {
 
     it('does not allow empty card', () => {
         const axis  = mount(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
 
         const button = axis.find('#add-card-button');
@@ -39,7 +50,7 @@ describe('Card creation test', function() {
 
     it('creates card correctly', () => {
         const axis  = mount(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
 
         const textField = axis.find('#add-card-text');
@@ -58,7 +69,7 @@ describe('Card creation test', function() {
 
     it('deletes card correctly', () => {
         const axis  = mount(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
 
         const textField = axis.find('#add-card-text');
@@ -85,7 +96,7 @@ describe('Card creation test', function() {
 
     it('pressing Enter adds a card', () => {
         const axis  = mount(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
 
         const textField = axis.find('#add-card-text');
@@ -103,7 +114,7 @@ describe('Card creation test', function() {
 
     it('adds card with pre-determined value', () => {
         const axis  = mount(
-            <Axis/>,
+            <Axis firebase={mocksdk}/>,
         );
 
         axis.instance().appendChildFromDB(1, "name", 100, 100);
@@ -112,7 +123,6 @@ describe('Card creation test', function() {
         axis.update();
 
         expect(axis.find(".figure-card")).toHaveLength(1);
-        expect(textField.getDOMNode().value).toBe('');
         expect(axis.find(".error-message").at(0).props().hidden).toBe(true);
 
 

@@ -2,13 +2,14 @@ import React from 'react';
 import {shallow, configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Card from "./card";
+import {mocksdk} from "../component/test/firebase-mock-setup";
 
 
 
 configure({adapter: new Adapter()});
 it('calls delete function', () => {
     const card = mount(
-        <Card name={"name"} key={0} />,
+        <Card name={"name"} key={0} firebase={mocksdk} />,
     );
 
     card.instance().deleteCard = jest.fn();
@@ -21,7 +22,9 @@ it('calls delete function', () => {
 
 it('updates location state after drag', () => {
     const card = mount(
-        <Card name={"name"} key={0} />,
+        <Card name={"name"} key={0} firebase={mocksdk}
+            x={0} y={0}
+        />,
     );
 
     expect(card.instance().state.position).toEqual({x:0, y:0});
