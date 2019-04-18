@@ -13,30 +13,31 @@ class Card extends Component {
                 x: props.x,
                 y: props.y,
             }
-        }
+        };
 
         this.deleteCard = this.deleteCard.bind(this);
         this.updatePosition = this.updatePosition.bind(this);
     }
 
-    // componentDidMount() {
-    //     this.props.firebase
-    //         .database()
-    //         .ref(`power-map-1000/cards/`)
-    //         .on('child_changed', (snapshot, prevSnapshot) => {
-    //             const card = snapshot.val();
-    //
-    //             console.log(card);
-    //
-    //             this.setState({
-    //                 position: {
-    //                     x: card["card_x_pos"],
-    //                     y: card["card_y_pos"],
-    //                 }
-    //             });
-    //         })
-    //
-    // }
+    componentDidMount() {
+        this.props.firebase
+            .database()
+            .ref(`power-map-1000/cards/`)
+            .on('child_changed', (snapshot, prevSnapshot) => {
+                const card = snapshot.val();
+
+                if(card["card_id"] !== this.props.id)
+                    return;
+
+                this.setState({
+                    position: {
+                        x: card["card_x_pos"],
+                        y: card["card_y_pos"],
+                    }
+                });
+            })
+
+    }
 
     deleteCard = () => {
         this.props.firebase
