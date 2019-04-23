@@ -3,4 +3,5 @@
 .navbar {
   display:flex;
   flex-direction: column;
+  transition: display 3s;
 }

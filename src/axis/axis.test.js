@@ -17,8 +17,11 @@ describe('Axis Header test', function() {
         );
 
         const headerElement = axisHeader.find('.axis-header').at(0);
+        const formElement = axisHeader.find('.navbar').at(0);
 
         expect(headerElement.props().style.width).toBe("10vw");
+        expect(formElement.props().style.display).toBe("none");
+
 
         const burgerIcon = axisHeader.find('.hamburger-icon').at(0);
         burgerIcon.simulate('click');
@@ -27,9 +30,11 @@ describe('Axis Header test', function() {
         axisHeader.update();
 
         const updatedHeaderElement = axisHeader.find('.axis-header').at(0);
-
+        const updatedFormElement = axisHeader.find('.navbar').at(0);
 
         expect(updatedHeaderElement.props().style.width).toBe("40vw");
+        expect(updatedFormElement.props().style.display).toBe("flex");
+
 
 
     });

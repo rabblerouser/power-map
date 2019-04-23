@@ -17,21 +17,18 @@ class Navbar extends Component {
     render() {
         return(
             <Router>
-                <div className={"navbar"}>
-                    <h1>Power Mapping Tool</h1>
+                <h1>Power Mapping Tool</h1>
 
-                    <div>
-                        <h2>Enter power map ID</h2>
-                        <input type={"text"}/>
-                        <button>Open</button>
-                    </div>
-
-                    <Link to="/power-map">Create a new power map</Link>
-
-                    <Route path="/power-map" component={this.renderAxis}/>
-
-
+                <div>
+                    <h2>Enter power map ID</h2>
+                    <input type={"text"}/>
+                    <button>Open</button>
                 </div>
+
+                <Link to="/power-map">Create a new power map</Link>
+
+                <Route path="/power-map" />
+
             </Router>
         );
     }

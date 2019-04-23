@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ErrorMessage from "../../component/error-message"
 import "./axis-header.css"
+import Navbar from "../../component/navbar"
 
 class AxisHeader extends Component {
 
@@ -54,6 +55,11 @@ class AxisHeader extends Component {
 
           <img className={"hamburger-icon"} src={"/hamburger-icon.png"}
                 onClick={() => {this.expandHeader()}}/>
+
+          <div className={"navbar"}
+               style={ this.state.expandHeader ? {display: "flex"} : {display: "none"}}  >
+              <Navbar/>
+          </div>
 
           <div id={"add-card-form"}>
               <ErrorMessage ref={"ErrorMessage"}/>
