@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Axis from "../axis/axis";
 import AxisContainer from "../axis/axis-container";
-import AxisDrawer from "../axis/component/axis-drawer"
 import "./navbar.css"
 
 
 class Navbar extends Component {
 
-    renderAxis = () => {
+    renderAxis = (powerMapID) => {
 
-        return <AxisDrawer/>
+        return <AxisContainer />
 
     }
 
@@ -28,7 +27,7 @@ class Navbar extends Component {
 
                 <Link to="/power-map">Create a new power map</Link>
 
-                <Route path="/power-map/:id" />
+                <Route path="/power-map" />
 
             </Router>
         );

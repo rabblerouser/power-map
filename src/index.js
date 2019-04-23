@@ -7,7 +7,7 @@ import Firebase, { FirebaseContext } from './component/Firebase';
 
 ReactDOM.render(
     <FirebaseContext.Provider value={Firebase}>
-        <AxisContainer/>
+        <AxisContainer />
     </FirebaseContext.Provider>,
     document.getElementById('root'),
 

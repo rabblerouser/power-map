@@ -10,37 +10,18 @@ class AxisHeader extends Component {
 
     this.state = {
       expandHeader: false,
-      powerMapID: 1000,
     }
   }
 
   appendChild = () => {
 
     const cardText = this.refs.CardText.value;
-    let newId = 1;
 
     if (!this.nameValidation(cardText))
         return false;
 
-    const cards =
-        this.props.firebase
-            .database()
-            .ref(`power-map-${this.state.powerMapID}/cards/`).orderByKey().limitToLast(1).once('value', (snapshot) =>{
-                const card = snapshot.val();
-                newId = parseInt(card[Object.keys(card)[0]]["card_id"]) + 1;
-            });
-
-    this.props.firebase
-        .database()
-        .ref(`power-map-${this.state.powerMapID}/cards/${newId}`)
-        .set({
-            card_id: newId,
-            card_name: cardText,
-            card_x_pos: 0,
-            card_y_pos: 0,
-        })
-
     this.refs.CardText.value = "";
+    this.props.appendChild(cardText);
 
   }
 
