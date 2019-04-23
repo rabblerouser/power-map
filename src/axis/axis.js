@@ -3,9 +3,8 @@ import React, {Component} from 'react';
 import Card from "../card/card";
 import ErrorMessage from "../component/error-message";
 import '../axis/axis.css';
-import '../axis/App.css';
 import AxisDrawer from "./component/axis-drawer";
-
+import AxisHeader from "./component/axis-header"
 
 
 class Axis extends Component {
@@ -86,12 +85,7 @@ class Axis extends Component {
 
     }
 
-    appendChild= () => {
-
-        const cardText = this.refs.CardText.value;
-
-        if (!this.nameValidation(cardText))
-            return false;
+    appendChild= (cardText) => {
 
         this.props.firebase
             .database()
@@ -115,9 +109,6 @@ class Axis extends Component {
             ],
             idCounter: this.state.idCounter + 1
         });
-
-        this.refs.CardText.value = "";
-
     }
 
     filterChild = (id) => {
@@ -130,34 +121,12 @@ class Axis extends Component {
 
     }
 
-    nameValidation(cardText) {
-        const errorMessage = this.refs.ErrorMessage;
-
-        if (cardText === "") {
-            errorMessage.setHidden(false);
-            return false;
-        }
-
-        errorMessage.setHidden(true);
-        return true;
-
-    }
-
     render() {
 
         return (
-            <div className="App">
+            <div className="axis-container">
 
-                <header className="App-header">
-                    <div id={"add-card-form"}>
-                        <ErrorMessage ref={"ErrorMessage"}/>
-                        <input type={"text"} id={"add-card-text"} ref={"CardText"} onKeyPress={(target) => {
-                            if(target.key === 'Enter')
-                                this.appendChild();
-                        }}/>
-                        <button id={"add-card-button"} onClick={() => this.appendChild()}>Add a Card</button>
-                    </div>
-                </header>
+                <AxisHeader appendChild={this.appendChild}/>
 
                 <div className="axis">
                     <AxisDrawer/>

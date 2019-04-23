@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Axis from "./axis/axis";
-import AxisContainer from "./axis/axis-container";
+import Axis from "../axis/axis";
+import AxisContainer from "../axis/axis-container";
+import "./navbar.css"
 
 
-class App extends Component {
+class Navbar extends Component {
 
     renderAxis = (powerMapID) => {
 
@@ -16,7 +17,7 @@ class App extends Component {
     render() {
         return(
             <Router>
-                <div className={"App"}>
+                <div className={"navbar"}>
                     <h1>Power Mapping Tool</h1>
 
                     <div>
@@ -39,4 +40,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default Navbar;

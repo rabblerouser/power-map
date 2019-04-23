@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow, configure, mount} from 'enzyme';
 import Axis from "./axis";
+import AxisHeader from "./component/axis-header"
 import Adapter from 'enzyme-adapter-react-16';
 import Card from "../card/card";
 import { mocksdk } from '../component/test/firebase-mock-setup';
@@ -16,19 +17,21 @@ describe('Card creation test', function() {
 
     it('calls card creation function correctly', () => {
 
+        const callAppendChildFromParent = jest.fn();
+        const appendChildInHeader = jest.fn(() => {
+             callAppendChildFromParent();
+        });
+
         const axis  = shallow(
-            <Axis firebase={mocksdk}/>,
+            <AxisHeader appendChild={callAppendChildFromParent}/>,
         );
 
-        // axis.setProps({firebase: mocksdk});
-        console.log("TEST");
-
-        axis.instance().appendChild = jest.fn();
+        axis.instance().appendChild = appendChildInHeader;
 
         const button = axis.find('#add-card-button');
         button.simulate('click');
 
-        expect(axis.instance().appendChild).toHaveBeenCalledTimes(1);
+        expect(callAppendChildFromParent).toBeCalled();
 
     });
 
