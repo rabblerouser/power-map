@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 
 import  { withFirebase } from '../component/Firebase';
 import Axis from "./axis";
+import AxisHeader from "./component/axis-header"
 
 class AxisContainer extends Component {
 
     render() {
 
         return (
-            <Axis firebase={this.props.firebase} powerMapID={"1000"}/>
+          <div className="axis-container">
+              <AxisHeader firebase={this.props.firebase}/>
+              <Axis firebase={this.props.firebase} powerMapID={"1000"} />
+          </div>
         );
 
 
