@@ -8,6 +8,34 @@ import { mocksdk } from '../component/test/firebase-mock-setup';
 
 configure({adapter: new Adapter()});
 
+describe('Axis Header test', function() {
+
+    it('expands header correctly', () => {
+
+        const axisHeader = mount(
+          <AxisHeader />
+        );
+
+        const headerElement = axisHeader.find('.axis-header').at(0);
+
+        expect(headerElement.props().style.width).toBe("10vw");
+
+        const burgerIcon = axisHeader.find('.hamburger-icon').at(0);
+        burgerIcon.simulate('click');
+
+        axisHeader.instance().forceUpdate();
+        axisHeader.update();
+
+        const updatedHeaderElement = axisHeader.find('.axis-header').at(0);
+
+
+        expect(updatedHeaderElement.props().style.width).toBe("40vw");
+
+
+    });
+
+})
+
 describe('Card creation test', function() {
 
     beforeAll(() => {
