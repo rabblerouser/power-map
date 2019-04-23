@@ -8,7 +8,7 @@ class AxisContainer extends Component {
     render() {
 
         return (
-            <Axis firebase={this.props.firebase}/>
+            <Axis firebase={this.props.firebase} powerMapID={"1000"}/>
         );
 
 

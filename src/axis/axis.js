@@ -21,7 +21,7 @@ class Axis extends Component {
     componentDidMount() {
 
         this.props.firebase.database()
-            .ref('power-map-1000')
+            .ref(`power-map-${this.props.powerMapID}`)
             .on('value', snapshot => {
                 const cards = snapshot.val()["cards"];
 
@@ -36,7 +36,7 @@ class Axis extends Component {
 
         this.props.firebase
             .database()
-            .ref('power-map-1000/cards').on('child_removed', snapshot => {
+            .ref(`power-map-${this.props.powerMapID}/cards`).on('child_removed', snapshot => {
                 const cards = snapshot.val();
                 this.filterChild(cards["card_id"])
             })
@@ -89,7 +89,7 @@ class Axis extends Component {
 
         this.props.firebase
             .database()
-            .ref(`power-map-1000/cards/${this.state.idCounter}`)
+            .ref(`power-map-${this.props.powerMapID}/cards/${this.state.idCounter}`)
             .set({
                 card_id: this.state.idCounter,
                 card_name: cardText,
@@ -138,6 +138,7 @@ class Axis extends Component {
                               id={child.id}
                               x={child.x} y={child.y}
                               firebase={this.props.firebase}
+                              powerMapID={this.props.powerMapID}
                         />
                     )}
 

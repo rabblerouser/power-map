@@ -18,7 +18,7 @@ class Card extends Component {
     componentDidMount() {
         this.props.firebase
             .database()
-            .ref(`power-map-1000/cards/`)
+            .ref(`power-map-${this.props.powerMapID}/cards/`)
             .on('child_changed', (snapshot, prevSnapshot) => {
                 const card = snapshot.val();
 
@@ -38,7 +38,7 @@ class Card extends Component {
     deleteCard = () => {
         this.props.firebase
             .database()
-            .ref(`power-map-1000/cards/${this.props.id}`)
+            .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
             .remove();
     }
 
@@ -56,7 +56,7 @@ class Card extends Component {
     savePositionToDB = () => {
         this.props.firebase
             .database()
-            .ref(`power-map-1000/cards/${this.props.id}`)
+            .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
             .set({
                 card_id: this.props.id,
                 card_name: this.props.name,
