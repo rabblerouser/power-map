@@ -5,8 +5,6 @@ import AxisContainer from "../axis/axis-container";
 import AxisDrawer from "../axis/component/axis-drawer"
 import "./navbar.css"
 
-const createPowerMapToggle = false;
-const findPowerMapToggle = false;
 
 class Navbar extends Component {
 
@@ -16,29 +14,19 @@ class Navbar extends Component {
 
     }
 
-    findPowerMap = () => {
-        return(
-          <div>
-              <h2>Enter power map ID</h2>
-              <input type={"text"}/>
-              <button>Open</button>
-          </div>
-        );
-    }
-
-    createPowerMap = () => {
-      return <Link to="/power-map">Create a new power map</Link>;
-    }
-
 
     render() {
         return(
             <Router>
                 <h1>Power Mapping Tool</h1>
 
-                {findPowerMapToggle ? this.findPowerMap : null}
+                <div>
+                    <h2>Enter power map ID</h2>
+                    <input type={"text"}/>
+                    <button>Open</button>
+                </div>
 
-                {createPowerMapToggle ? this.createPowerMap : null}
+                <Link to="/power-map">Create a new power map</Link>
 
                 <Route path="/power-map/:id" />
 
