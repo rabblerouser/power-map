@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import ErrorMessage from "../../component/error-message"
+import ErrorMessage from "../component/error-message";
+import Navbar from "./navbar";
+import uuid from 'uuid/v4';
 import "./axis-header.css"
-import Navbar from "../../component/navbar"
 
 class AxisHeader extends Component {
 
@@ -21,7 +22,18 @@ class AxisHeader extends Component {
         return false;
 
     this.refs.CardText.value = "";
-    this.props.appendChild(cardText);
+
+    const newCardId = uuid();
+
+    this.props.firebase
+        .database()
+        .ref(`power-map-${this.props.powerMapID}/cards/${newCardId}`)
+        .set({
+            card_id: newCardId,
+            card_name: cardText,
+            card_x_pos: 0,
+            card_y_pos: 0,
+        });
 
   }
 
@@ -45,8 +57,6 @@ class AxisHeader extends Component {
     });
 
   }
-
-
 
   render() {
     return (

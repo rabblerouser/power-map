@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-
 import Card from "../card/card";
-import ErrorMessage from "../component/error-message";
-import '../axis/axis.css';
 import AxisDrawer from "./component/axis-drawer";
-import AxisHeader from "./component/axis-header"
-
+import '../axis/axis.css';
 
 class Axis extends Component {
     constructor(props) {
@@ -13,7 +9,6 @@ class Axis extends Component {
 
         this.state = {
             children: [],
-            idCounter: 1,
         }
 
     }
@@ -28,9 +23,13 @@ class Axis extends Component {
                 if(Object.keys(cards).length < this.state.children.length)
                     return;
 
-                Object.keys(cards).map(key => {
-                    return this.appendChildFromDB(key, cards[key]["card_name"],
+                const mappedCards = Object.keys(cards).map(key => {
+                    return this.mapToChild(key, cards[key]["card_name"],
                         cards[key]["card_x_pos"], cards[key]["card_y_pos"])
+                });
+
+                this.setState({
+                  children: mappedCards
                 });
             })
 
@@ -43,72 +42,13 @@ class Axis extends Component {
 
     }
 
-    appendChildFromDB(id, name, x_pos, y_pos) {
-
-        let children = [...this.state.children];
-        const existingIndex = children.findIndex(x => {
-            return x.id == id;
-        });
-
-        if(existingIndex !== -1) {
-            let newItem = {
-                ...children[existingIndex],
-                id: id,
-                name: name,
-                x: x_pos,
-                y: y_pos,
-            };
-
-            children[existingIndex] = newItem;
-
-            this.setState({
-                children: [...children]
-            })
-        } else {
-            this.setState({
-                children: [
-                    ...children,
-                    {
-                        name: name,
-                        id: id,
-                        x: x_pos,
-                        y: y_pos,
-                    }
-                ],
-            });
-            if(id >= this.state.idCounter) {
-                this.setState({
-                    idCounter: parseInt(id) + 1,
-                })
-            }
-        }
-
-    }
-
-    appendChild= (cardText) => {
-
-        this.props.firebase
-            .database()
-            .ref(`power-map-${this.props.powerMapID}/cards/${this.state.idCounter}`)
-            .set({
-                card_id: this.state.idCounter,
-                card_name: cardText,
-                card_x_pos: 0,
-                card_y_pos: 0,
-            })
-
-        this.setState({
-            children: [
-                ...this.state.children,
-                {
-                    name: cardText,
-                    id: this.state.idCounter,
-                    x: 0,
-                    y: 0,
-                }
-            ],
-            idCounter: this.state.idCounter + 1
-        });
+    mapToChild(id, name, x_pos, y_pos) {
+        return {
+            name: name,
+            id: id,
+            x: x_pos,
+            y: y_pos,
+        };
     }
 
     filterChild = (id) => {
@@ -122,39 +62,28 @@ class Axis extends Component {
     }
 
     render() {
-
         return (
-            <div className="axis-container">
+          <div className="axis">
+            <AxisDrawer/>
 
-                <AxisHeader appendChild={this.appendChild}/>
+            {this.state.children.map(child =>
+                <Card filter={this.filterChild} name={child.name}
+                      key={child.id}
+                      id={child.id}
+                      x={child.x} y={child.y}
+                      firebase={this.props.firebase}
+                      powerMapID={this.props.powerMapID}
+                />
+            )}
 
-                <div className="axis">
-                    <AxisDrawer/>
+            <h3 className={"axis-title top-title"}>Powerful</h3>
+            <h3 className={"axis-title left-title"}>Strongly Disagree</h3>
+            <h3 className={"axis-title right-title"}>Strongly Agree</h3>
+            <h3 className={"axis-title bottom-title"}>Less Powerful</h3>
 
-                    {this.state.children.map(child =>
-
-                        <Card filter={this.filterChild} name={child.name}
-                              key={child.id}
-                              id={child.id}
-                              x={child.x} y={child.y}
-                              firebase={this.props.firebase}
-                              powerMapID={this.props.powerMapID}
-                        />
-                    )}
-
-                    <h3 className={"axis-title top-title"}>Powerful</h3>
-                    <h3 className={"axis-title left-title"}>Strongly Disagree</h3>
-                    <h3 className={"axis-title right-title"}>Strongly Agree</h3>
-                    <h3 className={"axis-title bottom-title"}>Less Powerful</h3>
-
-                </div>
-            </div>
-
+          </div>
         );
-
-
     }
-
 }
 
 export default Axis;

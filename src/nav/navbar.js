@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Axis from "../axis/axis";
 import AxisContainer from "../axis/axis-container";
 import "./navbar.css"
 
@@ -34,9 +33,9 @@ class Navbar extends Component {
             <Router>
                 <h1>Power Mapping Tool</h1>
 
-                {findPowerMapToggle ? this.findPowerMap : null}
+                {findPowerMapToggle ? this.findPowerMap() : null}
 
-                {createPowerMapToggle ? this.createPowerMap : null}
+                {createPowerMapToggle ? this.createPowerMap() : null}
 
                 <Route path="/power-map" />
 

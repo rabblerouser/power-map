@@ -1,19 +1,9 @@
-import React, {Component} from 'react';
-
+import React from 'react';
 import  { withFirebase } from '../component/Firebase';
 import Axis from "./axis";
 
-class AxisContainer extends Component {
-
-    render() {
-
-        return (
-            <Axis firebase={this.props.firebase} powerMapID={"1000"}/>
-        );
-
-
-    }
-
-}
+const AxisContainer = ({ firebase, powerMapID }) => (
+  <Axis firebase={firebase} powerMapID={powerMapID} />
+);
 
 export default withFirebase(AxisContainer);

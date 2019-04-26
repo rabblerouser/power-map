@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
-import AxisContainer from "./axis/axis-container";
 import Firebase, { FirebaseContext } from './component/Firebase';
+import Layout from './nav/layout';
+import './index.css';
 
 ReactDOM.render(
     <FirebaseContext.Provider value={Firebase}>
-        <AxisContainer />
+        <Layout />
     </FirebaseContext.Provider>,
     document.getElementById('root'),
 
