@@ -5,64 +5,60 @@ import { mocksdk } from '../component/test/firebase-mock-setup';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Card creation test', function() {
-  let mountAxis = () => mount(
-    <MemoryRouter>
-      <Axis firebase={mocksdk} />
-    </MemoryRouter>
-  );
+  const powerMapID = '1000';
+  let mountAxis = () =>
+    mount(
+      <MemoryRouter>
+        <Axis firebase={mocksdk} powerMapID={powerMapID} />
+      </MemoryRouter>
+    );
 
-  it('deletes card correctly', () => {
-    const cardID = 'card-id';
+  it('renders card correctly', () => {
     const wrapper = mountAxis();
     const axis = wrapper.find('Axis');
-    
+    const card = {
+      id: 'card-id',
+      name: 'name',
+      x: 100,
+      y: 100
+    };
+
     axis.setState({
-      children: [
-        {
-          name: 'name',
-          id: 'card-id',
-          x: 100,
-          y: 100
-        }
-      ]
+      children: [card]
     });
 
     wrapper.instance().forceUpdate();
     wrapper.update();
 
-    expect(wrapper.find('.figure-card')).toHaveLength(1);
-
-    const card = wrapper.find('.figure-card').at(0);
-    const deleteIcon = card.find('.delete-icon').at(0);
-    deleteIcon.simulate('click');
-
-    // TODO: supposedly from the on child_removed
-    axis.instance().filterChild(cardID);
-
-    wrapper.instance().forceUpdate();
-    wrapper.update();
-
-    expect(wrapper.find('.figure-card')).toHaveLength(0);
+    const cardComponent = wrapper.find('Card');
+    const cardProps = cardComponent.props();
+    expect(cardComponent).toHaveLength(1);
+    expect(cardProps.id).toEqual(card.id);
+    expect(cardProps.name).toEqual(card.name);
+    expect(cardProps.x).toEqual(card.x);
+    expect(cardProps.y).toEqual(card.y);
   });
 
-  it('adds card with pre-determined value', () => {
+  it('maps card from database correctly', () => {
     const wrapper = mountAxis();
     const axis = wrapper.find('Axis');
-    
-    axis.setState({
-      children: [
-        {
-          name: 'name',
-          id: 'card-id',
-          x: 100,
-          y: 100
-        }
-      ]
+    const axisInstance = axis.instance();
+    const card = {
+      card_name: 'card name',
+      card_x_pos: 100,
+      card_y_pos: 100
+    };
+
+    axisInstance.mapCardsToChildren({
+      'card-id': card
     });
+    
+    expect(axisInstance.state.children).toHaveLength(1);
+    
+    const mappedCard = axisInstance.state.children[0];
 
-    wrapper.instance().forceUpdate();
-    wrapper.update();
-
-    expect(wrapper.find('.figure-card')).toHaveLength(1);
+    expect(mappedCard.name).toEqual(card.card_name);
+    expect(mappedCard.x).toEqual(card.card_x_pos);
+    expect(mappedCard.y).toEqual(card.card_y_pos);
   });
 });

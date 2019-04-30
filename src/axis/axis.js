@@ -28,53 +28,32 @@ class Axis extends Component {
       .database()
       .ref(`power-map-${powerMapID}`);
 
-    this.onCardsUpdated = this.cardsDbRef
-      .on('value', snapshot => {
-        const cards = snapshot.val()['cards'];
+    this.onCardsUpdated = this.cardsDbRef.on('value', snapshot => {
+      const cards = snapshot.val()['cards'] || {};
 
-        if (Object.keys(cards).length < this.state.children.length) return;
-
-        const mappedCards = Object.keys(cards).map(key => {
-          return this.mapToChild(
-            key,
-            cards[key]['card_name'],
-            cards[key]['card_x_pos'],
-            cards[key]['card_y_pos']
-          );
-        });
-
-        this.setState({
-          children: mappedCards
-        });
-      });
-
-    this.onCardRemoved = this.cardsDbRef
-      .on('child_removed', snapshot => {
-        const cards = snapshot.val();
-        this.filterChild(cards['card_id']);
-      });
+      this.mapCardsToChildren(cards);
+    });
   }
 
   unsubscribeFromPowerMap() {
     this.cardsDbRef.off('value', this.onCardsUpdated);
-    this.cardsDbRef.off('child_removed', this.onCardRemoved);
   }
 
-  mapToChild(id, name, x_pos, y_pos) {
-    return {
-      name: name,
-      id: id,
-      x: x_pos,
-      y: y_pos
-    };
-  }
-
-  filterChild = id => {
-    const children = this.state.children.filter(child => child.id !== id);
-    this.setState({
-      children: children
+  mapCardsToChildren(cards) {
+    const mappedCards = Object.keys(cards).map(key => {
+      const card = cards[key];
+      return {
+        id: key,
+        name: card.card_name,
+        x: card.card_x_pos,
+        y: card.card_y_pos
+      };
     });
-  };
+
+    this.setState({
+      children: mappedCards
+    });
+  }
 
   render() {
     return (
@@ -83,10 +62,9 @@ class Axis extends Component {
 
         {this.state.children.map(child => (
           <Card
-            filter={this.filterChild}
-            name={child.name}
             key={child.id}
             id={child.id}
+            name={child.name}
             x={child.x}
             y={child.y}
             firebase={this.props.firebase}
