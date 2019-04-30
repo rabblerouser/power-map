@@ -1,15 +1,13 @@
 import React from 'react';
-import AxisHeaderContainer from './axis-header-container';
-import AxisContainer from '../axis/axis-container';
-
-const defaultPowerMapID = "1000";
+import { Route } from 'react-router-dom';
+import Container from './container';
 
 const Layout = () => (
-  <div className='axis-container'>
-    <AxisHeaderContainer powerMapID={defaultPowerMapID} />
-    
-    <AxisContainer powerMapID={defaultPowerMapID} />
-  </div>
+  <>
+    <Route path='/' exact component={Container} />
+    <Route path='/power-map' component={Container} />
+    <Route path='/power-map/:id' component={Container} />
+  </>
 );
 
 export default Layout;

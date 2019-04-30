@@ -1,50 +1,32 @@
-import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import AxisContainer from "../axis/axis-container";
-import "./navbar.css"
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import AxisContainer from '../axis/axis-container';
+import './navbar.css';
+import PowerMapChooser from './power-map-chooser';
 
-const createPowerMapToggle = false;
-const findPowerMapToggle = false;
+const createPowerMapToggle = true;
+const findPowerMapToggle = true;
 
 class Navbar extends Component {
+  renderAxis = powerMapID => {
+    return <AxisContainer />;
+  };
 
-    renderAxis = (powerMapID) => {
+  createPowerMap = () => {
+    return <Link to='/power-map'>Create a new power map</Link>;
+  };
 
-        return <AxisContainer />
+  render() {
+    return (
+      <>
+        <h1>Power Mapping Tool</h1>
 
-    }
+        {findPowerMapToggle ? <PowerMapChooser /> : null}
 
-    findPowerMap = () => {
-        return(
-          <div>
-              <h2>Enter power map ID</h2>
-              <input type={"text"}/>
-              <button>Open</button>
-          </div>
-        );
-    }
-
-    createPowerMap = () => {
-      return <Link to="/power-map">Create a new power map</Link>;
-    }
-
-    render() {
-        return(
-            <Router>
-                <h1>Power Mapping Tool</h1>
-
-                {findPowerMapToggle ? this.findPowerMap() : null}
-
-                {createPowerMapToggle ? this.createPowerMap() : null}
-
-                <Route path="/power-map" />
-
-            </Router>
-        );
-    }
-
-
-
+        {createPowerMapToggle ? this.createPowerMap() : null}
+      </>
+    );
+  }
 }
 
 export default Navbar;

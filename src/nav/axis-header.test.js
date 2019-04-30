@@ -1,29 +1,36 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import AxisHeader from './axis-header';
 import { mocksdk } from '../component/test/firebase-mock-setup';
 import uuid from 'uuid/v4';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('uuid/v4');
 
-describe('Axis Header test', function() {
-  it('expands header correctly', () => {
-    const axisHeader = mount(<AxisHeader />);
+describe('Axis Header test', () => {
+  let mountAxisHeader = (props) => mount(
+    <MemoryRouter>
+      <AxisHeader {...props} firebase={mocksdk} />
+    </MemoryRouter>
+  );
 
-    const headerElement = axisHeader.find('.axis-header').at(0);
-    const formElement = axisHeader.find('.navbar').at(0);
+  it('expands header correctly', () => {
+    const wrapper = mountAxisHeader();
+
+    const headerElement = wrapper.find('.axis-header').at(0);
+    const formElement = wrapper.find('.navbar').at(0);
 
     expect(headerElement.props().style.width).toBe('10vw');
     expect(formElement.props().style.display).toBe('none');
 
-    const burgerIcon = axisHeader.find('.hamburger-icon').at(0);
+    const burgerIcon = wrapper.find('.hamburger-icon').at(0);
     burgerIcon.simulate('click');
 
-    axisHeader.instance().forceUpdate();
-    axisHeader.update();
+    wrapper.instance().forceUpdate();
+    wrapper.update();
 
-    const updatedHeaderElement = axisHeader.find('.axis-header').at(0);
-    const updatedFormElement = axisHeader.find('.navbar').at(0);
+    const updatedHeaderElement = wrapper.find('.axis-header').at(0);
+    const updatedFormElement = wrapper.find('.navbar').at(0);
 
     expect(updatedHeaderElement.props().style.width).toBe('40vw');
     expect(updatedFormElement.props().style.display).toBe('flex');
@@ -48,16 +55,16 @@ describe('Axis Header test', function() {
   });
 
   it('does not allow empty card', () => {
-    const axis = mount(<AxisHeader firebase={mocksdk} />);
+    const wrapper = mountAxisHeader();
 
-    const button = axis.find('#add-card-button');
+    const button = wrapper.find('#add-card-button');
     button.simulate('click');
 
-    axis.instance().forceUpdate();
-    axis.update();
+    wrapper.instance().forceUpdate();
+    wrapper.update();
 
     expect(
-      axis
+      wrapper
         .find('.error-message')
         .at(0)
         .props().hidden
@@ -67,21 +74,22 @@ describe('Axis Header test', function() {
   it('creates card correctly', () => {
     const powerMapID = '1000';
     const cardID = 'my-uuid';
+    const wrapper = mountAxisHeader({
+      powerMapID
+    });
+
     uuid.mockImplementation(() => {
       return cardID;
     });
-    const axis = mount(
-      <AxisHeader firebase={mocksdk} powerMapID={powerMapID} />
-    );
 
-    const textField = axis.find('#add-card-text');
+    const textField = wrapper.find('#add-card-text');
     textField.getDOMNode().value = 'figure';
 
-    const button = axis.find('#add-card-button');
+    const button = wrapper.find('#add-card-button');
     button.simulate('click');
 
-    axis.instance().forceUpdate();
-    axis.update();
+    wrapper.instance().forceUpdate();
+    wrapper.update();
 
     expect(
       mocksdk.database().ref(`power-map-${powerMapID}/cards/${cardID}`)
