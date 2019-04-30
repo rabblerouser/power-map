@@ -5,7 +5,7 @@ import './navbar.css';
 import PowerMapChooser from './power-map-chooser';
 
 const createPowerMapToggle = false;
-const findPowerMapToggle = false;
+const findPowerMapToggle = true;
 
 class Navbar extends Component {
   renderAxis = powerMapID => {

@@ -27,6 +27,7 @@ describe('Power Map Chooser', () => {
     const wrapper = mountPowerMapChooser();
     const powerMapChooser = wrapper.find('PowerMapChooser');
 
+    wrapper.find('#showChooser').simulate('click');
     wrapper
       .find('#powerMapID')
       .simulate('change', { target: { value: powerMapID } });
