@@ -4,8 +4,8 @@ import AxisContainer from '../axis/axis-container';
 import './navbar.css';
 import PowerMapChooser from './power-map-chooser';
 
-const createPowerMapToggle = true;
-const findPowerMapToggle = true;
+const createPowerMapToggle = false;
+const findPowerMapToggle = false;
 
 class Navbar extends Component {
   renderAxis = powerMapID => {
