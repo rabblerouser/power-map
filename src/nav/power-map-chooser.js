@@ -7,7 +7,7 @@ const PowerMapChooser = ({ history }) => {
 
   const routeToPowerMap = () => {
     setShowChooser(false);
-    
+
     history.push({
       pathname: `/power-map/${powerMapID}`,
       search: '',
@@ -22,7 +22,7 @@ const PowerMapChooser = ({ history }) => {
         type='button'
         onClick={() => setShowChooser(true)}
       >
-        Show Chooser
+        Change Power Map
       </button>
     );
   }

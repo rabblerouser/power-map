@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import AxisContainer from '../axis/axis-container';
-import './navbar.css';
 import PowerMapChooser from './power-map-chooser';
+import CreatePowerMapContainer from './create-power-map-container';
+import './navbar.css';
 
-const createPowerMapToggle = false;
+const createPowerMapToggle = true;
 const findPowerMapToggle = true;
 
 class Navbar extends Component {
-  renderAxis = powerMapID => {
-    return <AxisContainer />;
-  };
-
-  createPowerMap = () => {
-    return <Link to='/power-map'>Create a new power map</Link>;
-  };
-
   render() {
     return (
       <>
@@ -23,7 +14,7 @@ class Navbar extends Component {
 
         {findPowerMapToggle ? <PowerMapChooser /> : null}
 
-        {createPowerMapToggle ? this.createPowerMap() : null}
+        {createPowerMapToggle ? <CreatePowerMapContainer /> : null}
       </>
     );
   }
