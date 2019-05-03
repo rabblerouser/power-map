@@ -33,10 +33,23 @@ class Axis extends Component {
 
       this.mapCardsToChildren(cards);
     });
+
+    this.onCardsRemoved = this.cardsDbRef.child('cards').on('child_removed', snapshot => {
+      const cardId = snapshot.val().card_id;
+      
+      const children = this.state.children.filter(child =>
+        child.id !== cardId
+      );
+
+      this.setState({
+          children: children,
+      });
+    });
   }
 
   unsubscribeFromPowerMap() {
     this.cardsDbRef.off('value', this.onCardsUpdated);
+    this.cardsDbRef.off('child_removed', this.onCardsRemoved);
   }
 
   mapCardsToChildren(cards) {
