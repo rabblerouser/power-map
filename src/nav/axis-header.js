@@ -63,7 +63,7 @@ class AxisHeader extends Component {
       <header className="axis-header"
               style={ this.state.expandHeader ? {width: "40vw"} : {width: "10vw"}}>
 
-          <img className={"hamburger-icon"} src={"/hamburger-icon.png"}
+          <img className={"hamburger-icon"} src={"/hamburger-icon.png"} alt={"hamburger icon"}
                 onClick={() => {this.expandHeader()}}/>
 
           <div className={"navbar"}
