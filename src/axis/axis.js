@@ -51,9 +51,9 @@ class Axis extends Component {
     });
   }
 
-  unsubscribeFromPowerMap() {
-    this.cardsDbRef.off('value', this.onCardsUpdated);
-    this.cardsDbRef.off('child_removed', this.onCardsRemoved);
+  unsubscribeFromPowerMap(_cardsDbRefOff = this.cardsDbRef.off) {
+    _cardsDbRefOff('value', this.onCardsUpdated);
+    _cardsDbRefOff('child_removed', this.onCardsRemoved);
   }
 
   mapCardsToChildren(cards) {

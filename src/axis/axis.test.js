@@ -61,4 +61,15 @@ describe('Card creation test', function() {
     expect(mappedCard.x).toEqual(card.card_x_pos);
     expect(mappedCard.y).toEqual(card.card_y_pos);
   });
+
+  it('should call unsubscribeFromPowerMap and call firebase db', () => {
+    const wrapper = mountAxis();
+    const axis = wrapper.find('Axis');
+    const axisInstance = axis.instance();
+    const mockCardsDbRefOff = jest.fn();
+    
+    axisInstance.unsubscribeFromPowerMap(mockCardsDbRefOff);
+    expect(mockCardsDbRefOff).toHaveBeenCalledTimes(2);
+    
+  });
 });
