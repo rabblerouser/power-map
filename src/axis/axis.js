@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Card from '../card/card';
 import AxisDrawer from './component/axis-drawer';
 import '../axis/axis.css';
@@ -29,20 +29,24 @@ class Axis extends Component {
       .ref(`power-map-${powerMapID}`);
 
     this.onCardsUpdated = this.cardsDbRef.on('value', snapshot => {
-      const cards = snapshot.val()['cards'] || {};
-
+      let cards;
+      if (snapshot !== null && snapshot.val() !== null) {
+        cards = snapshot.val()['cards'];
+      } else {
+        cards = {}
+      }
       this.mapCardsToChildren(cards);
     });
 
     this.onCardsRemoved = this.cardsDbRef.child('cards').on('child_removed', snapshot => {
       const cardId = snapshot.val().card_id;
-      
+
       const children = this.state.children.filter(child =>
         child.id !== cardId
       );
 
       this.setState({
-          children: children,
+        children: children,
       });
     });
   }
@@ -71,7 +75,7 @@ class Axis extends Component {
   render() {
     return (
       <div className='axis'>
-        <AxisDrawer />
+        <AxisDrawer/>
 
         {this.state.children.map(child => (
           <Card
