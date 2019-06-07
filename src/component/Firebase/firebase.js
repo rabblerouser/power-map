@@ -2,7 +2,7 @@ import app from 'firebase/app';
 import 'firebase/database';
 
 const config = {
-    apiKey: "AIzaSyAa8XjoRk5HQR7BvWrtRNDm1SGTRv5D0OY",
+    apiKey: process.env.FIREBASE_API_KEY,
     authDomain: "power-mapping-tool.firebaseapp.com",
     databaseURL: "https://power-mapping-tool.firebaseio.com/",
     projectId: "power-mapping-tool",

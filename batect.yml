@@ -1,0 +1,39 @@
+containers:
+  build-env:
+    image: node:11.4.0
+    volumes:
+      - local: .
+        container: /code
+        options: cached
+    working_directory: /code
+    ports:
+      - local: 4567
+        container: 3000
+    run_as_current_user:
+      enabled: true
+      home_directory: /home/container-user
+    environment: 
+      FIREBASE_API_KEY: ${POWERMAP_FIREBASE_API_KEY}
+        
+        
+tasks:
+  shell:
+    run:
+      container: build-env
+      command: bash
+  build:
+    run:
+      container: build-env
+      command: npm run build
+  start:
+    run:
+      container: build-env
+      command: npm run start
+  test:
+    run:
+      container: build-env
+      command: npm run test
+  
+    
+    
+  

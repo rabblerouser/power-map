@@ -3,24 +3,28 @@ A tool to help campaigners collaboratively create and manage power maps
 =======
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+The project has also been containerised using Docker, with batect tool to start and configure the container.
+
+batect documentation: https://batect.charleskorn.com/
+
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you need to configure a local_env.sh file in the root directory of the project with the Firebase API. Only then can you run:
 
-### `npm start`
+### `./batect start`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:4567](http://localhost:4567) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `./batect test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### `./batect build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -66,7 +70,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
+### `./batect build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 >>>>>>> Initial commit from Create React App
