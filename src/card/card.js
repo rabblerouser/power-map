@@ -51,11 +51,14 @@ class Card extends Component {
       .database()
       .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
       .on('value', snapshot =>{
-        this.colour = snapshot.val()['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
+        const snapshotColour = snapshot.val()
+        if(snapshotColour !== null) {
+          this.colour = snapshotColour['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
+        }
         this.setState({
           colour: this.colour
         })
-      })
+      });
 
     this.updateScaledPosition();
 
@@ -149,7 +152,7 @@ class Card extends Component {
         onDrag={this.updatePosition}
         onStop={this.saveCardStateToDB}
       >
-        <div ref={this.cardRef} className={'figure-card'} style={{backgroundColor: this.colour}}>
+        <div ref={this.cardRef} className={'figure-card'} style={{backgroundColor: this.state.colour}}>
           <h3>{this.props.name}</h3>
           <button className={'delete-icon'} onClick={() => this.deleteCard()}>
             x

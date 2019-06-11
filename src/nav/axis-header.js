@@ -70,6 +70,13 @@ class AxisHeader extends Component {
                style={ this.state.expandHeader ? {display: "flex"} : {display: "none"}}  >
               <Navbar/>
           </div>
+          
+        <div>
+          <div>LEGEND</div>
+          Red - Bad Relationship
+          Yellow - Unsure
+          Green - Good Relationship
+        </div>
 
           <div id={"add-card-form"}>
               <ErrorMessage ref={"ErrorMessage"}/>
