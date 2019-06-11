@@ -1,15 +1,15 @@
 import React from 'react';
 import Card from './card';
-import { mount } from 'enzyme';
-import { mocksdk } from '../component/test/firebase-mock-setup';
-import { MemoryRouter } from 'react-router-dom';
+import {mount} from 'enzyme';
+import {mocksdk} from '../component/test/firebase-mock-setup';
+import {MemoryRouter} from 'react-router-dom';
 
 describe('Card', () => {
   let mountCard = props =>
     mount(
       <MemoryRouter>
         <div>
-          <Card {...props} firebase={mocksdk} />
+          <Card {...props} firebase={mocksdk}/>
         </div>
       </MemoryRouter>
     );
@@ -41,7 +41,7 @@ describe('Card', () => {
     });
     const card = wrapper.find('Card');
 
-    expect(card.instance().state.position).toEqual({ x: 0, y: -0 });
+    expect(card.instance().state.position).toEqual({x: 0, y: -0});
 
     card.simulate('mousedown');
 
@@ -49,7 +49,7 @@ describe('Card', () => {
     mouseMove(500, 500);
     mouseMove(100, 100);
 
-    expect(card.instance().state.position).toEqual({ x: 100, y: 100 });
+    expect(card.instance().state.position).toEqual({x: 100, y: 100});
   });
 
   it('Recalculates scaled position on resize', () => {
@@ -80,10 +80,34 @@ describe('Card', () => {
     expect(cardInstance.state.position.y).toEqual(-60);
   });
 
+  it('changes the colour of the card', () => {
+    const wrapper = mountCard({
+      name: 'name',
+      x: 0,
+      y: 0
+    });
+
+    const expectedColours = {
+      red: "#FE0101",
+      yellow: "#FEF601",
+      green: "#01FE01",
+      grey: "#797979"
+    };
+    
+    const card = wrapper.find('Card');
+    const cardInstance = card.instance();
+    
+    cardInstance.changeCardColour();
+    
+    console.log(`expected colours ${cardInstance.state.colour}`)
+    
+    expect(Object.values(expectedColours).includes(cardInstance.state.colour)).toEqual(true)
+  });
+
   function mouseMove(x, y, node) {
     const event = document.createEvent('MouseEvents');
     event.initMouseEvent("mousemove", true, true, window, 0, 0,
-        0, x, y, false, false, false, false, 0, null );
+      0, x, y, false, false, false, false, 0, null);
     document.dispatchEvent(event);
     return event;
   }

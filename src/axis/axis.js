@@ -27,14 +27,12 @@ class Axis extends Component {
     this.cardsDbRef = this.props.firebase
       .database()
       .ref(`power-map-${powerMapID}`);
-
+    
     this.onCardsUpdated = this.cardsDbRef.on('value', snapshot => {
       let cards;
-      if (snapshot !== null && snapshot.val() !== null) {
-        cards = snapshot.val()['cards'];
-      } else {
-        cards = {}
-      }
+      
+      cards = snapshot.val()['cards'] !== undefined ? snapshot.val()['cards'] : {}
+
       this.mapCardsToChildren(cards);
     });
 

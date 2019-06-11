@@ -1,7 +1,6 @@
 .figure-card {
     width: 100px;
     height: 100px;
-    background-color: #b4b4b4;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,4 +21,13 @@
     height: 20px;
     background-color: #ffa3a3;
     border: 0;
+}
+.change-colour-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 0;
 }

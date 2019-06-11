@@ -1,3 +1,4 @@
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all.css";
 
 .axis-header {
   display: flex;
@@ -12,7 +13,6 @@
   z-index: 100;
   left:0;
   transition: width 0.5s;
-
 }
 
 .hamburger-icon {
