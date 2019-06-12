@@ -25,9 +25,7 @@ class Card extends Component {
       },
       colour: ""
     };
-
-    this.colour = this.state.colour;
-
+    
     this.cardRef = React.createRef();
   }
 
@@ -36,13 +34,14 @@ class Card extends Component {
     
     firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
       .on('value', snapshot => {
-        const snapshotColour = snapshot.val();
-        if (snapshotColour !== null) {
-          this.colour = snapshotColour['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
+        const snapshotValue = snapshot.val();
+        if (snapshotValue !== null) {
+          console.log(`called component ${this.state.colour}`)
+          const snapshotColour = snapshotValue['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
+          this.setState({
+            colour: snapshotColour
+          })
         }
-        this.setState({
-          colour: this.colour
-        })
       });
     
     firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/`)
@@ -54,12 +53,9 @@ class Card extends Component {
           x: card['card_x_pos'],
           y: card['card_y_pos']
         };
-
-        this.updateScaledPosition();
       });
     
     this.updateScaledPosition();
-
     window.addEventListener("resize", this.updateScaledPosition);
   }
 
@@ -131,18 +127,14 @@ class Card extends Component {
       } else {
         colour = availableColours[newColour]
       }
-    } else {
-      colour = availableColours[0]
     }
-    this.setState({
+    this.setState( {
       colour
     });
   };
   
   getColourIndex = (currentColour, availableColours) => {
-    
     const colourIndex = availableColours.indexOf(currentColour);
-    
     return colourIndex >= 0 ? colourIndex: 0;
   }
 
