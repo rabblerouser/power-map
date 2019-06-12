@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Draggable from 'react-draggable';
-import { getBounds } from './positionHelpers';
+import {getBounds} from './positionHelpers';
 import '../card/card.css';
-import { COLOURS } from './enums/config';
+import {COLOURS} from './enums/config';
 
 class Card extends Component {
   constructor(props) {
@@ -25,16 +25,27 @@ class Card extends Component {
       },
       colour: ""
     };
-    
-    this.colour= this.state.colour;
+
+    this.colour = this.state.colour;
 
     this.cardRef = React.createRef();
   }
 
   componentDidMount() {
-    this.props.firebase
-      .database()
-      .ref(`power-map-${this.props.powerMapID}/cards/`)
+    const firebaseDatabase = this.props.firebase.database();
+    
+    firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
+      .on('value', snapshot => {
+        const snapshotColour = snapshot.val();
+        if (snapshotColour !== null) {
+          this.colour = snapshotColour['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
+        }
+        this.setState({
+          colour: this.colour
+        })
+      });
+    
+    firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/`)
       .on('child_changed', (snapshot, prevSnapshot) => {
         const card = snapshot.val();
         if (card['card_id'] !== this.props.id) return;
@@ -43,23 +54,10 @@ class Card extends Component {
           x: card['card_x_pos'],
           y: card['card_y_pos']
         };
-        
+
         this.updateScaledPosition();
       });
-
-    this.props.firebase
-      .database()
-      .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
-      .on('value', snapshot =>{
-        const snapshotColour = snapshot.val()
-        if(snapshotColour !== null) {
-          this.colour = snapshotColour['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
-        }
-        this.setState({
-          colour: this.colour
-        })
-      });
-
+    
     this.updateScaledPosition();
 
     window.addEventListener("resize", this.updateScaledPosition);
@@ -77,7 +75,7 @@ class Card extends Component {
   };
 
   updatePosition = (e, ui) => {
-    const { x, y } = this.state.position;
+    const {x, y} = this.state.position;
     this.setState({
       position: {
         x: x + ui.deltaX,
@@ -108,6 +106,7 @@ class Card extends Component {
         card_y_pos: this.state.position.y / axisScale.y,
         card_colour: this.state.colour
       });
+    console.log(`SAVING GOT CALLED: ${this.state.colour}`)
   };
 
   getAxisScale = () => {
@@ -117,19 +116,17 @@ class Card extends Component {
       y: bounds.top / this.axisFixedBounds.top
     };
   };
-  
+
   changeCardColour = () => {
     let colour;
     const currentColour = this.state.colour;
     const availableColours = Object.values(COLOURS);
+
+    const currentIndexColour = this.getColourIndex(currentColour, availableColours);
     
-    const currentIndexColour = availableColours.find((element)=>currentColour === element) !== undefined ? 
-      availableColours.findIndex((element)=>currentColour === element): 0;
-    
-    
-    if(parseInt(currentIndexColour) <= availableColours.length){
-      const newColour = currentIndexColour + 1 ;
-      if(newColour >= availableColours.length){
+    if (parseInt(currentIndexColour) <= availableColours.length) {
+      const newColour = currentIndexColour + 1;
+      if (newColour >= availableColours.length) {
         colour = availableColours[0]
       } else {
         colour = availableColours[newColour]
@@ -139,8 +136,15 @@ class Card extends Component {
     }
     this.setState({
       colour
-    })
+    });
   };
+  
+  getColourIndex = (currentColour, availableColours) => {
+    
+    const colourIndex = availableColours.indexOf(currentColour);
+    
+    return colourIndex >= 0 ? colourIndex: 0;
+  }
 
   getAxisBounds = () => getBounds(this.cardRef.current);
 
@@ -148,7 +152,7 @@ class Card extends Component {
     return (
       <Draggable
         bounds='parent'
-        position={{ x: this.state.position.x, y: this.state.position.y }}
+        position={{x: this.state.position.x, y: this.state.position.y}}
         onDrag={this.updatePosition}
         onStop={this.saveCardStateToDB}
       >
@@ -157,10 +161,7 @@ class Card extends Component {
           <button className={'delete-icon'} onClick={() => this.deleteCard()}>
             x
           </button>
-          <button className={'change-colour-icon'} onClick={() => {
-            this.changeCardColour();
-            this.saveCardStateToDB();
-          }}>
+          <button className={'change-colour-icon'} onClick={() => this.changeCardColour()}>
             <i className="fa fa-paint-brush"></i>
           </button>
         </div>

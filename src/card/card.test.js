@@ -90,8 +90,7 @@ describe('Card', () => {
     const expectedColours = {
       red: "#FE0101",
       yellow: "#FEF601",
-      green: "#01FE01",
-      grey: "#797979"
+      green: "#01FE01"
     };
     
     const card = wrapper.find('Card');
@@ -102,6 +101,39 @@ describe('Card', () => {
     console.log(`expected colours ${cardInstance.state.colour}`)
     
     expect(Object.values(expectedColours).includes(cardInstance.state.colour)).toEqual(true)
+  });
+
+  it('should return the index when finds colour exists when getColourIndex is called', () => {
+    const wrapper = mountCard({
+      name: 'name',
+      x: 0,
+      y: 0
+    });
+
+    const card = wrapper.find('Card');
+    const cardInstance = card.instance();
+    cardInstance.state.colour = "#FEF601";
+
+    const expected = 1;
+    const result = cardInstance.getColourIndex(cardInstance.state.colour, ["dontcare","#FEF601"]);
+    
+    expect(result).toEqual(expected)
+  });
+
+  it('should return 0 when finds colour does not exists when getColourIndex is called', () => {
+    const wrapper = mountCard({
+      name: 'name',
+      x: 0,
+      y: 0
+    });
+
+    const card = wrapper.find('Card');
+    const cardInstance = card.instance();
+
+    const expected = 0;
+    const result = cardInstance.getColourIndex("", ["#FEF601"]);
+
+    expect(result).toEqual(expected)
   });
 
   function mouseMove(x, y, node) {
