@@ -72,10 +72,12 @@ class AxisHeader extends Component {
           </div>
           
         <div>
-          <div>LEGEND</div>
-          Red - Bad Relationship
-          Yellow - Unsure
-          Green - Good Relationship
+          <p className="legend_header">LEGEND</p>
+          <ul className="legend_list">
+            <li>Red - Bad Relationship</li>
+            <li>Yellow - Unsure</li>
+            <li>Green - Good Relationship</li>
+          </ul>
         </div>
 
           <div id={"add-card-form"}>

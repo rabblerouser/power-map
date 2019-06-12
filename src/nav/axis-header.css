@@ -19,3 +19,12 @@
   width:25px;
   height:25px;
 }
+
+.legend_header {
+  font-weight: bold;
+}
+
+.legend_list {
+  list-style: none;
+  padding: 0;
+}
