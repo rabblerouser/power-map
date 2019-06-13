@@ -1,6 +1,6 @@
 containers:
   build-env:
-    image: node:11.4.0
+    image: node:12.4.0
     volumes:
       - local: .
         container: /code
@@ -24,15 +24,15 @@ tasks:
   build:
     run:
       container: build-env
-      command: npm run build
+      command: yarn run build
   start:
     run:
       container: build-env
-      command: npm run start
+      command: yarn run start
   test:
     run:
       container: build-env
-      command: npm run test
+      command: yarn run test
   
     
     

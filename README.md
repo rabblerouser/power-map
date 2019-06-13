@@ -21,7 +21,7 @@ You will also see any lint errors in the console.
 
 ### `./batect test`
 
-Launches the test runner in the interactive watch mode.<br>
+Launches the test runner with code coverage, will not watch tests.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `./batect build`
