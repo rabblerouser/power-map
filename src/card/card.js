@@ -36,11 +36,10 @@ class Card extends Component {
       .on('value', snapshot => {
         const snapshotValue = snapshot.val();
         if (snapshotValue !== null) {
-          console.log(`called component ${this.state.colour}`)
           const snapshotColour = snapshotValue['card_colour'] !== undefined ? snapshot.val()['card_colour'] : "";
           this.setState({
             colour: snapshotColour
-          })
+          });
         }
       });
     
@@ -102,7 +101,6 @@ class Card extends Component {
         card_y_pos: this.state.position.y / axisScale.y,
         card_colour: this.state.colour
       });
-    console.log(`SAVING GOT CALLED: ${this.state.colour}`)
   };
 
   getAxisScale = () => {
