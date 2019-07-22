@@ -12,10 +12,10 @@ containers:
     run_as_current_user:
       enabled: true
       home_directory: /home/container-user
-    environment: 
-      FIREBASE_API_KEY: ${POWERMAP_FIREBASE_API_KEY}
-        
-        
+    environment:
+      REACT_APP_FIREBASE_API_KEY: ${POWERMAP_FIREBASE_API_KEY}
+      HTTPS: true
+
 tasks:
   shell:
     run:
