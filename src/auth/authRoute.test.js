@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter, Redirect } from 'react-router-dom';
 
-import AuthRoute from './AuthRoute';
+import AuthRoute from './authRoute';
 import Container from '../nav/container';
 import { authentication } from '../service/authentication';
 
