@@ -12,10 +12,11 @@ containers:
     run_as_current_user:
       enabled: true
       home_directory: /home/container-user
-    environment: 
-      FIREBASE_API_KEY: ${POWERMAP_FIREBASE_API_KEY}
-        
-        
+    environment:
+      REACT_APP_FIREBASE_API_KEY: ${POWERMAP_FIREBASE_API_KEY}
+#      Enable it when you want to use HTTPS for your local environment
+#      HTTPS: true
+
 tasks:
   shell:
     run:

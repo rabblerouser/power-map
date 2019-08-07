@@ -5,11 +5,13 @@
   "dependencies": {
     "firebase": "^5.9.3",
     "firebase-admin": "^7.4.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-draggable": "^3.3.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
+    "rxjs": "^6.5.2",
     "uuid": "^3.3.2"
   },
   "scripts": {
