@@ -1,17 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import Container from "./container";
-import Login from "../auth/login";
-import AuthRoute from "../auth/authRoute";
+import Container from './container';
 
 const Layout = () => (
-  <Router>
-    <AuthRoute path='/' exact component={Container} />
-    <AuthRoute path='/power-map/:id?' component={Container} />
-    <Route path='/login' component={Login} />
-  </Router>
+  <>
+    <Route path='/' exact component={Container} />
+    <Route path='/power-map/:id?' component={Container} />
+  </>
 );
 
 export default Layout;
