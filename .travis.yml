@@ -1,5 +1,5 @@
 language: node_js
 node_js:
-  - "11.4.0"
+  - "11.10.1"
 notifications:
   email: false
