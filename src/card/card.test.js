@@ -3,14 +3,19 @@ import Card from './card';
 import {mount} from 'enzyme';
 import {mocksdk} from '../component/test/firebase-mock-setup';
 import {MemoryRouter} from 'react-router-dom';
+import {FirebaseContext} from "../component/Firebase";
 
 describe('Card', () => {
   let mountCard = props =>
     mount(
       <MemoryRouter>
-        <div>
+        <FirebaseContext.Provider value={{
+          store: mocksdk,
+          onDeleteObject: () => {},
+          onSaveObject: () => {}
+        }}>
           <Card {...props} firebase={mocksdk}/>
-        </div>
+        </FirebaseContext.Provider>
       </MemoryRouter>
     );
 
@@ -98,7 +103,7 @@ describe('Card', () => {
     
     cardInstance.changeCardColour();
     
-    console.log(`expected colours ${cardInstance.state.colour}`)
+    console.log(`expected colours ${cardInstance.state.colour}`);
     
     expect(Object.values(expectedColours).includes(cardInstance.state.colour)).toEqual(true)
   });
@@ -136,7 +141,7 @@ describe('Card', () => {
     expect(result).toEqual(expected)
   });
 
-  function mouseMove(x, y, node) {
+  function mouseMove(x, y, _) {
     const event = document.createEvent('MouseEvents');
     event.initMouseEvent("mousemove", true, true, window, 0, 0,
       0, x, y, false, false, false, false, 0, null);

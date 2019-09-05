@@ -4,13 +4,20 @@ import AxisHeader from './axis-header';
 import { mocksdk } from '../component/test/firebase-mock-setup';
 import uuid from 'uuid/v4';
 import { MemoryRouter } from 'react-router-dom';
+import {FirebaseContext} from "../component/Firebase";
 
 jest.mock('uuid/v4');
 
 describe('Axis Header test', () => {
   let mountAxisHeader = (props) => mount(
     <MemoryRouter>
-      <AxisHeader {...props} firebase={mocksdk} />
+      <FirebaseContext.Provider value={{
+        store: mocksdk,
+        onDeleteObject: () => {},
+        onSaveObject: () => {}
+      }}>
+        <AxisHeader {...props} firebase={mocksdk} />
+      </FirebaseContext.Provider>
     </MemoryRouter>
   );
 
