@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import {getBounds} from './positionHelpers';
 import '../card/card.css';
 import {COLOURS} from './enums/config';
+import {withFirebaseUpdateHooks} from "../component/Firebase/context";
 
 class Card extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class Card extends Component {
       });
     
     firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/`)
-      .on('child_changed', (snapshot, prevSnapshot) => {
+      .on('child_changed', (snapshot, _) => {
         const card = snapshot.val();
         if (card['card_id'] !== this.props.id) return;
 
@@ -62,11 +63,8 @@ class Card extends Component {
     window.removeEventListener("resize", this.updateScaledPosition);
   }
 
-  deleteCard = () => {
-    this.props.firebase
-      .database()
-      .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
-      .remove();
+  deleteCard = async () => {
+    await this.props.onDeleteObject(`power-map-${this.props.powerMapID}/cards/${this.props.id}`);
   };
 
   updatePosition = (e, ui) => {
@@ -89,18 +87,17 @@ class Card extends Component {
     });
   };
 
-  saveCardStateToDB = () => {
+  saveCardStateToDB = async () => {
     const axisScale = this.getAxisScale();
-    this.props.firebase
-      .database()
-      .ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
-      .set({
-        card_id: this.props.id,
-        card_name: this.props.name,
-        card_x_pos: this.state.position.x / axisScale.x,
-        card_y_pos: this.state.position.y / axisScale.y,
-        card_colour: this.state.colour
-      });
+    const card = {
+      card_id: this.props.id,
+      card_name: this.props.name,
+      card_x_pos: this.state.position.x / axisScale.x,
+      card_y_pos: this.state.position.y / axisScale.y,
+      card_colour: this.state.colour
+    };
+    
+    await this.props.onSaveObject(`power-map-${this.props.powerMapID}/cards/${this.props.id}`, card);
   };
 
   getAxisScale = () => {
@@ -134,7 +131,7 @@ class Card extends Component {
   getColourIndex = (currentColour, availableColours) => {
     const colourIndex = availableColours.indexOf(currentColour);
     return colourIndex >= 0 ? colourIndex: 0;
-  }
+  };
 
   getAxisBounds = () => getBounds(this.cardRef.current);
 
@@ -152,7 +149,7 @@ class Card extends Component {
             x
           </button>
           <button className={'change-colour-icon'} onClick={() => this.changeCardColour()}>
-            <i className="fa fa-paint-brush"></i>
+            <i className="fa fa-paint-brush"/>
           </button>
         </div>
       </Draggable>
@@ -160,4 +157,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default withFirebaseUpdateHooks(Card);
