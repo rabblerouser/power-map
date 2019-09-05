@@ -96,7 +96,6 @@ class Card extends Component {
       card_y_pos: this.state.position.y / axisScale.y,
       card_colour: this.state.colour
     };
-    
     await this.props.onSaveObject(`power-map-${this.props.powerMapID}/cards/${this.props.id}`, card);
   };
 
@@ -125,7 +124,7 @@ class Card extends Component {
     }
     this.setState( {
       colour
-    });
+    }, () => this.saveCardStateToDB());
   };
   
   getColourIndex = (currentColour, availableColours) => {
@@ -148,7 +147,7 @@ class Card extends Component {
           <button className={'delete-icon'} onClick={() => this.deleteCard()}>
             x
           </button>
-          <button className={'change-colour-icon'} onClick={() => this.changeCardColour()}>
+          <button className={'change-colour-icon'} onClick={this.changeCardColour}>
             <i className="fa fa-paint-brush"/>
           </button>
         </div>
