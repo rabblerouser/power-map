@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import Layout from './nav/layout';
 import './index.css';
+import Container from "./nav/container";
+import { Route } from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
-    <Layout/>
+    <Route path='/' exact component={Container} />
+    <Route path='/power-map/:id?' component={Container} />
   </Router>,
   document.getElementById('root')
 );

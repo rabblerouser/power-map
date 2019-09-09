@@ -17,6 +17,18 @@ class Container extends Component {
       powerMapId
     };
   }
+  
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.unsubscribeFromPowerMap();
+      this.setState({
+        powerMapId: this.props.match.params.id
+      }, () => {
+        this.subscribeToPowerMap();
+      });
+    }
+  }
+    
 
   onDeleteObject = async (reference) => {
     await Firebase
@@ -36,12 +48,8 @@ class Container extends Component {
     this.subscribeToPowerMap();
   };
 
-  componentWillUnmount = () => {
-    this.unsubscribeFromPowerMap();
-  };
-
-  subscribeToPowerMap = () => {
-    this.cardsDbReference = Firebase
+  subscribeToPowerMap = async () => {
+    this.cardsDbReference = await Firebase
       .database()
       .ref(`power-map-${this.state.powerMapId}`);
 
@@ -66,9 +74,9 @@ class Container extends Component {
     });
   };
   
-  unsubscribeFromPowerMap = (_cardsDbRefOff = this.cardsDbReference.off) => {
-    _cardsDbRefOff('value', this.onCardsUpdated);
-    _cardsDbRefOff('child_removed', this.onCardsRemoved);
+  unsubscribeFromPowerMap = () => {
+    this.cardsDbReference.off('value', this.onCardsUpdated);
+    this.cardsDbReference.off('child_removed', this.onCardsRemoved);
   };
 
   mapCardsToChildren(cards) {
