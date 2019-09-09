@@ -15,11 +15,11 @@ const Container = ({match}) => {
       .remove();
   };
   
-  const onSaveObject = async (reference, card) => {
+  const onSaveObject = async (reference, object) => {
     await Firebase
       .database()
       .ref(reference)
-      .set(card);
+      .set(object);
   };
 
   return (
