@@ -54,9 +54,8 @@ class Container extends Component {
       .ref(`power-map-${this.state.powerMapId}`);
 
     this.onCardsUpdated = this.cardsDbReference.on('value', snapshot => {
-      let cards;
 
-      cards = snapshot.val()['cards'] !== undefined ? snapshot.val()['cards'] : {};
+      let cards = snapshot.val()!= null && snapshot.val()['cards'] != undefined ? snapshot.val()['cards'] : {};
 
       this.mapCardsToChildren(cards);
     });
