@@ -53,13 +53,8 @@ class Container extends Component {
       .database()
       .ref(`power-map-${this.state.powerMapId}`);
 
-    this.onCardsUpdated = this.cardsDbReference.on('value', snapshot => {
-
-      let cards = snapshot.val()!= null && snapshot.val()['cards'] != undefined ? snapshot.val()['cards'] : {};
-
-      this.mapCardsToChildren(cards);
-    });
-
+    this.onCardsUpdated = this.cardsDbReference.on('value', this.updateCardsOnSnapshot);
+    
     this.onCardsRemoved = this.cardsDbReference.child('cards').on('child_removed', snapshot => {
       const cardId = snapshot.val().card_id;
 
@@ -73,12 +68,17 @@ class Container extends Component {
     });
   };
   
+  updateCardsOnSnapshot =(snapshot) => {
+    let cards = snapshot.val()!== null && snapshot.val()['cards'] !== undefined ? snapshot.val()['cards'] : {};
+    this.mapCardsToChildren(cards);
+  };
+  
   unsubscribeFromPowerMap = () => {
     this.cardsDbReference.off('value', this.onCardsUpdated);
     this.cardsDbReference.off('child_removed', this.onCardsRemoved);
   };
 
-  mapCardsToChildren(cards) {
+  mapCardsToChildren = (cards) => {
     const mappedCards = Object.keys(cards).map(key => {
       const card = cards[key];
       return {
