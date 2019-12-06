@@ -1,15 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AxisHeaderContainer from './axis-header-container';
-import AxisContainer from '../axis/axis-container';
-import Firebase, {FirebaseContext} from "../component/Firebase";
+import Firebase, { FirebaseContext } from "../../database/Firebase";
 
-const defaultPowerMapID = "1000";
+import AxisContentContainer from './axis-content-container';
+
+const defaultPowerMapId = "1000";
 
 class Container extends Component {
   constructor(props) {
     super(props);
 
-    const powerMapId = props.match.params.id || defaultPowerMapID;
+    const powerMapId = props.match.params.id || defaultPowerMapId;
 
     this.state = {
       cards: [],
@@ -17,7 +18,7 @@ class Container extends Component {
       powerMapId
     };
   }
-  
+
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.unsubscribeFromPowerMap();
@@ -28,7 +29,7 @@ class Container extends Component {
       });
     }
   }
-    
+
 
   onDeleteObject = async (reference) => {
     await Firebase
@@ -73,7 +74,7 @@ class Container extends Component {
       });
     });
   };
-  
+
   unsubscribeFromPowerMap = () => {
     this.cardsDbReference.off('value', this.onCardsUpdated);
     this.cardsDbReference.off('child_removed', this.onCardsRemoved);
@@ -94,7 +95,7 @@ class Container extends Component {
       cards: mappedCards
     });
   }
-  
+
   render = () => {
     const { cards, powerMapId } = this.state;
     return (
@@ -104,8 +105,8 @@ class Container extends Component {
           onDeleteObject: this.onDeleteObject,
           onSaveObject: this.onSaveObject
         }}>
-          <AxisHeaderContainer powerMapID={powerMapId}/>
-          <AxisContainer cards={cards} powerMapID={powerMapId}/>
+          <AxisHeaderContainer powerMapId={powerMapId} />
+          <AxisContentContainer cards={cards} powerMapId={powerMapId} />
         </FirebaseContext.Provider>
       </div>)
   }

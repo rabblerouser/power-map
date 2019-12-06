@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Card from '../card/card';
-import AxisDrawer from './component/axis-drawer';
-import '../axis/axis.css';
+import AxisDrawer from '../axis/axis-drawer';
+import './axis.css';
 
 class Axis extends Component {
 
@@ -18,7 +18,7 @@ class Axis extends Component {
             name={child.name}
             x={child.x}
             y={child.y}
-            powerMapID={this.props.powerMapID}
+            powerMapId={this.props.powerMapId}
           />
         ))}
 

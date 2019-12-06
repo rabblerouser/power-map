@@ -23,18 +23,18 @@ describe('Power Map Chooser', () => {
     );
 
   it('Open power map ID redirects to chosen ID', () => {
-    const powerMapID = '100';
+    const powerMapId = '100';
     const wrapper = mountPowerMapChooser();
     const powerMapChooser = wrapper.find('PowerMapChooser');
 
     wrapper.find('#showChooser').simulate('click');
     wrapper
-      .find('#powerMapID')
-      .simulate('change', { target: { value: powerMapID } });
+      .find('#powerMapId')
+      .simulate('change', { target: { value: powerMapId } });
     wrapper.find('#openPowerMap').simulate('click');
 
     expect(powerMapChooser.props().history.push).toHaveBeenCalledWith({
-      pathname: `/power-map/${powerMapID}`,
+      pathname: `/power-map/${powerMapId}`,
       search: '',
       hash: ''
     });

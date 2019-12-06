@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFirebase } from '../component/Firebase';
+import { withFirebase } from '../../database/Firebase';
 import CreatePowerMap from './create-power-map';
 
 const CreatePowerMapContainer = ({ firebase }) => (

@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import AxisHeader from './axis-header';
-import { mocksdk } from '../component/test/firebase-mock-setup';
+import { mocksdk } from '../../database/test/firebase-mock-setup';
 import uuid from 'uuid/v4';
 import { MemoryRouter } from 'react-router-dom';
-import {FirebaseContext} from "../component/Firebase";
+import {FirebaseContext} from "../../database/Firebase";
 
 jest.mock('uuid/v4');
 
@@ -79,10 +79,10 @@ describe('Axis Header test', () => {
   });
 
   it('creates card correctly', () => {
-    const powerMapID = '1000';
+    const powerMapId = '1000';
     const cardID = 'my-uuid';
     const wrapper = mountAxisHeader({
-      powerMapID
+      powerMapId
     });
 
     uuid.mockImplementation(() => {
@@ -99,7 +99,7 @@ describe('Axis Header test', () => {
     wrapper.update();
 
     expect(
-      mocksdk.database().ref(`power-map-${powerMapID}/cards/${cardID}`)
+      mocksdk.database().ref(`power-map-${powerMapId}/cards/${cardID}`)
     ).toBeTruthy();
   });
 

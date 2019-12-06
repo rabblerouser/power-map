@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Draggable from 'react-draggable';
 import {getBounds} from './positionHelpers';
-import '../card/card.css';
+import './card.css';
 import {COLOURS} from './enums/config';
-import {withFirebaseUpdateHooks} from "../component/Firebase/context";
+import {withFirebaseUpdateHooks} from "../../database/Firebase/context";
 
 class Card extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Card extends Component {
   componentDidMount() {
     const firebaseDatabase = this.props.firebase.database();
     
-    firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/${this.props.id}`)
+    firebaseDatabase.ref(`power-map-${this.props.powerMapId}/cards/${this.props.id}`)
       .on('value', snapshot => {
         const snapshotValue = snapshot.val();
         if (snapshotValue !== null) {
@@ -44,7 +44,7 @@ class Card extends Component {
         }
       });
     
-    firebaseDatabase.ref(`power-map-${this.props.powerMapID}/cards/`)
+    firebaseDatabase.ref(`power-map-${this.props.powerMapId}/cards/`)
       .on('child_changed', (snapshot, _) => {
         const card = snapshot.val();
         if (card['card_id'] !== this.props.id) return;
@@ -64,7 +64,7 @@ class Card extends Component {
   }
 
   deleteCard = async () => {
-    await this.props.onDeleteObject(`power-map-${this.props.powerMapID}/cards/${this.props.id}`);
+    await this.props.onDeleteObject(`power-map-${this.props.powerMapId}/cards/${this.props.id}`);
   };
 
   updatePosition = (e, ui) => {
@@ -96,7 +96,7 @@ class Card extends Component {
       card_y_pos: this.state.position.y / axisScale.y,
       card_colour: this.state.colour
     };
-    await this.props.onSaveObject(`power-map-${this.props.powerMapID}/cards/${this.props.id}`, card);
+    await this.props.onSaveObject(`power-map-${this.props.powerMapId}/cards/${this.props.id}`, card);
   };
 
   getAxisScale = () => {

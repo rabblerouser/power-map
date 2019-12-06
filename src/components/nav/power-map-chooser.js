@@ -3,13 +3,13 @@ import { withRouter } from 'react-router-dom';
 
 const PowerMapChooser = ({ history }) => {
   const [showChooser, setShowChooser] = useState(false);
-  const [powerMapID, setPowerMapID] = useState('');
+  const [powerMapId, setPowerMapId] = useState('');
 
   const routeToPowerMap = () => {
     setShowChooser(false);
 
     history.push({
-      pathname: `/power-map/${powerMapID}`,
+      pathname: `/power-map/${powerMapId}`,
       search: '',
       hash: ''
     });
@@ -34,9 +34,9 @@ const PowerMapChooser = ({ history }) => {
         <label>Power Map ID</label>
         <input
           type='text'
-          id='powerMapID'
-          value={powerMapID}
-          onChange={e => setPowerMapID(e.target.value)}
+          id='powerMapId'
+          value={powerMapId}
+          onChange={e => setPowerMapId(e.target.value)}
         />
       </div>
       <button id='openPowerMap' type='button' onClick={() => routeToPowerMap()}>

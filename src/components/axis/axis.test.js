@@ -1,12 +1,12 @@
 import React from 'react';
 import Axis from './axis';
 import { mount } from 'enzyme';
-import { mocksdk } from '../component/test/firebase-mock-setup';
+import { mocksdk } from '../../database/test/firebase-mock-setup';
 import { MemoryRouter } from 'react-router-dom';
-import {FirebaseContext} from "../component/Firebase";
+import {FirebaseContext} from "../../database/Firebase";
 
 describe('Card creation test', function() {
-  const powerMapID = '1000';
+  const powerMapId = '1000';
   const card = {
     id: 'card-id',
     name: 'name',
@@ -21,7 +21,7 @@ describe('Card creation test', function() {
           onDeleteObject: () => {},
           onSaveObject: () => {}
         }}>
-          <Axis cards={[card]} firebase={mocksdk} powerMapID={powerMapID} />
+          <Axis cards={[card]} firebase={mocksdk} powerMapId={powerMapId} />
         </FirebaseContext.Provider>
       </MemoryRouter>
     );
