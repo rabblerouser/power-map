@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AxisHeaderContainer from './axis-header-container';
-import Firebase, { FirebaseContext } from "../../database/Firebase";
-
+import Firebase from "../../database/Firebase";
 import AxisContentContainer from './axis-content-container';
 
 const defaultPowerMapId = "1000";
@@ -31,19 +30,6 @@ class Container extends Component {
   }
 
 
-  onDeleteObject = async (reference) => {
-    await Firebase
-      .database()
-      .ref(reference)
-      .remove();
-  };
-
-  onSaveObject = async (reference, object) => {
-    await Firebase
-      .database()
-      .ref(reference)
-      .set(object);
-  };
 
   componentDidMount = () => {
     this.subscribeToPowerMap();
@@ -100,14 +86,8 @@ class Container extends Component {
     const { cards, powerMapId } = this.state;
     return (
       <div className='axis-container'>
-        <FirebaseContext.Provider value={{
-          store: Firebase,
-          onDeleteObject: this.onDeleteObject,
-          onSaveObject: this.onSaveObject
-        }}>
           <AxisHeaderContainer powerMapId={powerMapId} />
           <AxisContentContainer cards={cards} powerMapId={powerMapId} />
-        </FirebaseContext.Provider>
       </div>)
   }
 }

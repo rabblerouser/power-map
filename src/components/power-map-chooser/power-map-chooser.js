@@ -6,8 +6,16 @@ const PowerMapChooser = ({ compressHeader, history }) => {
   const [powerMapId, setPowerMapId] = useState('');
 
   const routeToPowerMap = () => {
+    if(!Boolean(powerMapId)){
+      alert("Please enter a power map id.");
+      return;
+    }
+
     setShowChooser(false);
-    compressHeader();
+    
+    if(compressHeader){
+      compressHeader();
+    }
 
     history.push({
       pathname: `/power-map/${powerMapId}`,

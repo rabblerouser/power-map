@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PowerMapChooser from './power-map-chooser';
-import CreatePowerMapContainer from './create-power-map-container';
+import PowerMapChooser from '../power-map-chooser/power-map-chooser';
+import CreatePowerMapContainer from '../create-power-map/create-power-map-container';
 import './navbar.css';
 
 const createPowerMapToggle = true;
@@ -14,7 +14,7 @@ class Navbar extends Component {
 
         {findPowerMapToggle ? <PowerMapChooser compressHeader={this.props.compressHeader}/> : null}
 
-        {createPowerMapToggle ? <CreatePowerMapContainer compressHeader={this.props.compressHeader}/> : null}
+        {createPowerMapToggle ? <CreatePowerMapContainer compressHeader={this.props.compressHeader} /> : null}
       </>
     );
   }

@@ -15,7 +15,10 @@ const CreatePowerMap = ({ compressHeader, firebase, history }) => {
 
   const submitCreatePowerMap = () => {
     setShowForm(false);
-    compressHeader();
+    
+    if(compressHeader){
+      compressHeader();
+    }
 
     firebase
       .database()

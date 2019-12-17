@@ -1,0 +1,15 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 60px;
+    background-color: #ffe5e5;
+    align-items: center;
+
+}
+
+.home-body{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
