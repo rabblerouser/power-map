@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import './create-power-map.css';
 
-const CreatePowerMap = ({ firebase, history }) => {
+const CreatePowerMap = ({ compressHeader, firebase, history }) => {
   const [showForm, setShowForm] = useState(false);
-  const [newPowerMapId, setNewPowerMapId] = useState('');
-  const [newPassword, setNewPassword] = useState(null);
+  const [newPowerMapId, setNewPowerMapId] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const showInputForm = () => {
     setShowForm(true);
     setNewPowerMapId("");
-    setNewPassword(null);
+    setNewPassword("");
   };
 
   const submitCreatePowerMap = () => {
     setShowForm(false);
-    setNewPassword(Boolean(newPassword) ? null : newPassword);
+    compressHeader();
 
     firebase
       .database()
       .ref(`power-map-${newPowerMapId}`)
       .set({
         id: newPowerMapId,
-        password: newPassword
+        password: Boolean(newPassword) ? newPassword : null
       });
 
     history.push({

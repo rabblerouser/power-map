@@ -12,9 +12,9 @@ class Navbar extends Component {
       <>
         <h1>Power Mapping Tool</h1>
 
-        {findPowerMapToggle ? <PowerMapChooser /> : null}
+        {findPowerMapToggle ? <PowerMapChooser compressHeader={this.props.compressHeader}/> : null}
 
-        {createPowerMapToggle ? <CreatePowerMapContainer /> : null}
+        {createPowerMapToggle ? <CreatePowerMapContainer compressHeader={this.props.compressHeader}/> : null}
       </>
     );
   }

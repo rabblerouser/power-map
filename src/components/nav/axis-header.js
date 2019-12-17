@@ -10,6 +10,8 @@ class AxisHeader extends Component {
   constructor(props) {
     super(props);
 
+  this.compressHeader = this.compressHeader.bind(this); 
+
     this.state = {
       expandHeader: false,
     }
@@ -51,12 +53,17 @@ class AxisHeader extends Component {
 
   }
 
+  compressHeader() {
+    this.setState({
+      expandHeader: false
+    });
+  }
+
   expandHeader = () => {
 
     this.setState({
       expandHeader: !this.state.expandHeader,
     });
-
   }
 
   render() {
@@ -69,7 +76,7 @@ class AxisHeader extends Component {
 
         <div className={"navbar"}
           style={this.state.expandHeader ? { display: "flex" } : { display: "none" }}  >
-          <Navbar />
+          <Navbar compressHeader={this.compressHeader}/>
         </div>
 
 

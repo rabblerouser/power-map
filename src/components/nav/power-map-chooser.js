@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-const PowerMapChooser = ({ history }) => {
+const PowerMapChooser = ({ compressHeader, history }) => {
   const [showChooser, setShowChooser] = useState(false);
   const [powerMapId, setPowerMapId] = useState('');
 
   const routeToPowerMap = () => {
     setShowChooser(false);
+    compressHeader();
 
     history.push({
       pathname: `/power-map/${powerMapId}`,
